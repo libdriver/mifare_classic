@@ -1,0 +1,3 @@
+[submodule "reader/mfrc522"]
+	path = reader/mfrc522
+	url = https://github.com/hepingood/mfrc522.git
