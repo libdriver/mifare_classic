@@ -342,7 +342,7 @@ uint8_t mifare_classic_anticollision_cl2(mifare_classic_handle_t *handle, uint8_
  * @param[in] *id points to an id buffer
  * @return    status code
  *            - 0 success
- *            - 1 anticollision cl1 failed
+ *            - 1 select cl1 failed
  *            - 2 handle is NULL
  *            - 3 handle is not initialized
  *            - 4 output_len is invalid
@@ -357,7 +357,7 @@ uint8_t mifare_classic_select_cl1(mifare_classic_handle_t *handle, uint8_t id[4]
  * @param[in] *id points to an id buffer
  * @return    status code
  *            - 0 success
- *            - 1 anticollision cl2 failed
+ *            - 1 select cl2 failed
  *            - 2 handle is NULL
  *            - 3 handle is not initialized
  *            - 4 output_len is invalid
