@@ -665,9 +665,9 @@ uint8_t mifare_classic_basic_set_permission(mifare_classic_authentication_key_t 
  *             - 1 get sector permission failed
  * @note       none
  */
-uint8_t mifare_classic_basic_sget_permission(mifare_classic_authentication_key_t key_type, uint8_t key[6],
-                                             uint8_t sector, uint8_t *block_0_0_4, uint8_t *block_1_5_9,
-                                             uint8_t *block_2_10_14, uint8_t *block_3_15, uint8_t *user_data, uint8_t key_b[6])
+uint8_t mifare_classic_basic_get_permission(mifare_classic_authentication_key_t key_type, uint8_t key[6],
+                                            uint8_t sector, uint8_t *block_0_0_4, uint8_t *block_1_5_9,
+                                            uint8_t *block_2_10_14, uint8_t *block_3_15, uint8_t *user_data, uint8_t key_b[6])
 {
     uint8_t res;
     uint8_t block;
