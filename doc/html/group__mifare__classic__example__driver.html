@@ -142,9 +142,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa3b74b827490d6a46835964644b975dc"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mifare__classic__example__driver.html#gaa3b74b827490d6a46835964644b975dc">mifare_classic_basic_set_permission</a> (<a class="el" href="group__mifare__classic__basic__driver.html#gafb821a1247892b750ae7da63a477b8d1">mifare_classic_authentication_key_t</a> key_type, uint8_t key[6], uint8_t sector, uint8_t key_a[6], uint8_t block_0_0_4, uint8_t block_1_5_9, uint8_t block_2_10_14, uint8_t block_3_15, uint8_t user_data, uint8_t key_b[6])</td></tr>
 <tr class="memdesc:gaa3b74b827490d6a46835964644b975dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">basic example set the sector permission  <a href="group__mifare__classic__example__driver.html#gaa3b74b827490d6a46835964644b975dc">More...</a><br /></td></tr>
 <tr class="separator:gaa3b74b827490d6a46835964644b975dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga17084969d5dad51f8f3a7e2acd20de45"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mifare__classic__example__driver.html#ga17084969d5dad51f8f3a7e2acd20de45">mifare_classic_basic_sget_permission</a> (<a class="el" href="group__mifare__classic__basic__driver.html#gafb821a1247892b750ae7da63a477b8d1">mifare_classic_authentication_key_t</a> key_type, uint8_t key[6], uint8_t sector, uint8_t *block_0_0_4, uint8_t *block_1_5_9, uint8_t *block_2_10_14, uint8_t *block_3_15, uint8_t *user_data, uint8_t key_b[6])</td></tr>
-<tr class="memdesc:ga17084969d5dad51f8f3a7e2acd20de45"><td class="mdescLeft">&#160;</td><td class="mdescRight">basic example get the sector permission  <a href="group__mifare__classic__example__driver.html#ga17084969d5dad51f8f3a7e2acd20de45">More...</a><br /></td></tr>
-<tr class="separator:ga17084969d5dad51f8f3a7e2acd20de45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac558de20c894eb495bf7a68f3fdc8dd4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mifare__classic__example__driver.html#gac558de20c894eb495bf7a68f3fdc8dd4">mifare_classic_basic_get_permission</a> (<a class="el" href="group__mifare__classic__basic__driver.html#gafb821a1247892b750ae7da63a477b8d1">mifare_classic_authentication_key_t</a> key_type, uint8_t key[6], uint8_t sector, uint8_t *block_0_0_4, uint8_t *block_1_5_9, uint8_t *block_2_10_14, uint8_t *block_3_15, uint8_t *user_data, uint8_t key_b[6])</td></tr>
+<tr class="memdesc:gac558de20c894eb495bf7a68f3fdc8dd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">basic example get the sector permission  <a href="group__mifare__classic__example__driver.html#gac558de20c894eb495bf7a68f3fdc8dd4">More...</a><br /></td></tr>
+<tr class="separator:gac558de20c894eb495bf7a68f3fdc8dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>mifare classic example driver modules </p>
@@ -194,6 +194,100 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>none </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="driver__mifare__classic__basic_8c_source.html#l00095">95</a> of file <a class="el" href="driver__mifare__classic__basic_8c_source.html">driver_mifare_classic_basic.c</a>.</p>
+
+</div>
+</div>
+<a id="gac558de20c894eb495bf7a68f3fdc8dd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac558de20c894eb495bf7a68f3fdc8dd4">&#9670;&nbsp;</a></span>mifare_classic_basic_get_permission()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t mifare_classic_basic_get_permission </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__mifare__classic__basic__driver.html#gafb821a1247892b750ae7da63a477b8d1">mifare_classic_authentication_key_t</a>&#160;</td>
+          <td class="paramname"><em>key_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>key</em>[6], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>sector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>block_0_0_4</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>block_1_5_9</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>block_2_10_14</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>block_3_15</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>key_b</em>[6]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>basic example get the sector permission </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the get sector </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_0_0_4</td><td>points to a block0(block0-4) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_1_5_9</td><td>points to a block1(block5-9) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_2_10_14</td><td>points to a block2(block10-14) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_3_15</td><td>points to a block3(block15) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*user_data</td><td>points to a user data buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*key_b</td><td>points to a key b buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code<ul>
+<li>0 success</li>
+<li>1 get sector permission failed </li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="driver__mifare__classic__basic_8c_source.html#l00668">668</a> of file <a class="el" href="driver__mifare__classic__basic_8c_source.html">driver_mifare_classic_basic.c</a>.</p>
 
 </div>
 </div>
@@ -463,100 +557,6 @@ Functions</h2></td></tr>
 <p>block_3_15 permission(c1_c2_c3) definition is below c1 c2 c3 keya_read keya_write access_read access_write keyb_read keyb_write 0 0 0 never keya keya never keya keya 0 1 0 never never keya never keya never 1 0 0 never keyb keya|b never never keyb 1 1 0 never never keya|b never never never 0 0 1 never keya keya keya keya keya 0 1 1 never keyb keya|b keyb never keyb 1 0 1 never never keya|b keyb never never 1 1 1 never never keya|b never never never </p>
 
 <p class="definition">Definition at line <a class="el" href="driver__mifare__classic__basic_8c_source.html#l00620">620</a> of file <a class="el" href="driver__mifare__classic__basic_8c_source.html">driver_mifare_classic_basic.c</a>.</p>
-
-</div>
-</div>
-<a id="ga17084969d5dad51f8f3a7e2acd20de45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga17084969d5dad51f8f3a7e2acd20de45">&#9670;&nbsp;</a></span>mifare_classic_basic_sget_permission()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t mifare_classic_basic_sget_permission </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__mifare__classic__basic__driver.html#gafb821a1247892b750ae7da63a477b8d1">mifare_classic_authentication_key_t</a>&#160;</td>
-          <td class="paramname"><em>key_type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>key</em>[6], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>sector</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>block_0_0_4</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>block_1_5_9</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>block_2_10_14</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>block_3_15</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t *&#160;</td>
-          <td class="paramname"><em>user_data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>key_b</em>[6]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>basic example get the sector permission </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the get sector </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_0_0_4</td><td>points to a block0(block0-4) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_1_5_9</td><td>points to a block1(block5-9) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_2_10_14</td><td>points to a block2(block10-14) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_3_15</td><td>points to a block3(block15) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*user_data</td><td>points to a user data buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*key_b</td><td>points to a key b buffer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>status code<ul>
-<li>0 success</li>
-<li>1 get sector permission failed </li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="driver__mifare__classic__basic_8c_source.html#l00668">668</a> of file <a class="el" href="driver__mifare__classic__basic_8c_source.html">driver_mifare_classic_basic.c</a>.</p>
 
 </div>
 </div>
