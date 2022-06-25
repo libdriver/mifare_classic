@@ -47,6 +47,7 @@ static uint8_t gs_id[4];                         /**< local id */
 static void s_debug_print(const char *const fmt, ...)
 {
     (void)fmt;
+    
     return;
 }
 
