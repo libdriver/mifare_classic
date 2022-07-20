@@ -7,7 +7,7 @@
  * <h3>history</h3>
  * <table>
  * <tr><th>Date        <th>Version  <th>Author      <th>Description
- * <tr><td>2022/06/31  <td>1.0      <td>Shifeng Li  <td>first upload
+ * <tr><td>2022/06/30  <td>1.0      <td>Shifeng Li  <td>first upload
  * </table>
  *
  * <h3><center>Copyright (c) LibDriver
