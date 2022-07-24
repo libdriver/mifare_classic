@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <fileVersion>5</fileVersion>
-    <fileChecksum>105308687</fileChecksum>
+    <fileChecksum>4168293229</fileChecksum>
     <configuration>
         <name>Release</name>
         <outputs>
-            <file>$PROJ_DIR$\..\interface\src\gpio.c</file>
-            <file>$PROJ_DIR$\..\interface\src\iic.c</file>
-            <file>$PROJ_DIR$\..\interface\src\clock.c</file>
-            <file>$PROJ_DIR$\..\interface\src\delay.c</file>
-            <file>$PROJ_DIR$\..\interface\src\uart.c</file>
-            <file>$PROJ_DIR$\..\usr\src\main.c</file>
-            <file>$PROJ_DIR$\..\interface\src\spi.c</file>
-            <file>$PROJ_DIR$\..\usr\src\shell.c</file>
-            <file>$PROJ_DIR$\..\usr\src\stm32f4xx_hal_msp.c</file>
-            <file>$PROJ_DIR$\..\usr\src\stm32f4xx_it.c</file>
-            <file>$PROJ_DIR$\..\usr\src\system_stm32f4xx.c</file>
-            <file>$PROJ_DIR$\..\driver\src\stm32f407_driver_mifare_classic_interface.c</file>
-            <file>$PROJ_DIR$\..\..\..\src\driver_mifare_classic.c</file>
-            <file>$PROJ_DIR$\..\..\..\example\driver_mifare_classic_basic.c</file>
-            <file>$PROJ_DIR$\..\interface\src\wire.c</file>
-            <file>$PROJ_DIR$\..\..\..\test\driver_mifare_classic_card_test.c</file>
-            <file>$PROJ_DIR$\..\..\..\reader\mfrc522\src\driver_mfrc522.c</file>
-            <file>$PROJ_DIR$\..\..\..\reader\mfrc522\project\stm32f407\driver\src\stm32f407_driver_mfrc522_interface.c</file>
-            <file>$PROJ_DIR$\..\..\..\reader\mfrc522\example\driver_mfrc522_basic.c</file>
+            <file>$PROJ_DIR$\..\hal\asm\startup_stm32f407xx_ew.s</file>
         </outputs>
         <forcedrebuild>
             <name>[REBUILD_ALL]</name>
