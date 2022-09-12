@@ -50,6 +50,8 @@ Fügen Sie /src, /interface und /example zu Ihrem Projekt hinzu.
 #### example basic
 
 ```C
+#include "driver_mifare_classic_basic.h"
+
 uint8_t res;
 mifare_classic_authentication_key_t key_type;
 uint8_t key[6];

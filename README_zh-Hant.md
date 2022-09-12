@@ -50,6 +50,8 @@ LibDriver MIFARE_ Classic是LibDriver推出的MIFARE_ Classic全功能驅動，�
 #### example basic
 
 ```C
+#include "driver_mifare_classic_basic.h"
+
 uint8_t res;
 mifare_classic_authentication_key_t key_type;
 uint8_t key[6];
