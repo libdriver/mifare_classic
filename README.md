@@ -27,15 +27,15 @@ LibDriver MIFARE_Classic is the full function driver of MIFARE_Classic launched 
 
 /src includes LibDriver MIFARE_Classic source files.
 
-/interface includes LibDriver MIFARE_Classic RF platform independent template。
+/interface includes LibDriver MIFARE_Classic RF platform independent template.
 
-/test includes LibDriver MIFARE_Classic driver test code and this code can test the chip necessary function simply。
+/test includes LibDriver MIFARE_Classic driver test code and this code can test the chip necessary function simply.
 
 /example includes LibDriver MIFARE_Classic sample code.
 
 /doc includes LibDriver MIFARE_Classic offline document.
 
-/datasheet includes MIFARE_Classic datasheet。
+/datasheet includes MIFARE_Classic datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
 
@@ -50,6 +50,8 @@ Add /src, /interface and /example to your project.
 #### example basic
 
 ```C
+#include "driver_mifare_classic_basic.h"
+
 uint8_t res;
 mifare_classic_authentication_key_t key_type;
 uint8_t key[6];
