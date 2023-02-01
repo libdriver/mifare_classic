@@ -12,6 +12,12 @@ NXP Semiconductors hat den kontaktlosen MIFARE Classic EV1 IC MF1S50yyX/V1 entwi
 
 LibDriver MIFARE_Classic ist der Vollfunktionstreiber von MIFARE_Classic, der von LibDriver gestartet wurde. Er bietet die Funktion von Leseblock, Schreibblock, Werterhöhung, Wertverringerung und so weiter. LibDriver ist MISRA-konform.
 
+Dieses Repository enthält ein Submodul und Sie sollten "--recursive" hinzufügen, um das gesamte Projekt zu klonen.
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
+
 ### Inhaltsverzeichnis
 
   - [Anweisung](#Anweisung)
@@ -38,6 +44,8 @@ LibDriver MIFARE_Classic ist der Vollfunktionstreiber von MIFARE_Classic, der vo
 /Datenblatt enthält MIFARE_Classic-Datenblatt.
 
 /project enthält den allgemeinen Beispielcode für Linux- und MCU-Entwicklungsboards. Alle Projekte verwenden das Shell-Skript, um den Treiber zu debuggen, und die detaillierten Anweisungen finden Sie in der README.md jedes Projekts.
+
+/misra enthält die Ergebnisse des LibDriver MISRA Code Scans.
 
 ### Installieren
 
@@ -196,13 +204,13 @@ return 0;
 
 ### Dokument
 
-Online-Dokumente: https://www.libdriver.com/docs/mifare_classic/index.html
+Online-Dokumente: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html).
 
-Offline-Dokumente: /doc/html/index.html
+Offline-Dokumente: /doc/html/index.html.
 
 ### Beitrag
 
-Bitte senden Sie eine E-Mail an lishifenging@outlook.com
+Bitte beachten Sie CONTRIBUTING.md.
 
 ### Lizenz
 
@@ -250,4 +258,4 @@ SOFTWARE.
 
 ### Kontaktieren Sie uns
 
-Bitte senden Sie eine E-Mail an lishifenging@outlook.com
+Bitte senden Sie eine E-Mail an lishifenging@outlook.com.

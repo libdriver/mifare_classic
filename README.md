@@ -12,6 +12,12 @@ NXP Semiconductors has developed the MIFARE Classic EV1 contactless IC MF1S50yyX
 
 LibDriver MIFARE_Classic is the full function driver of MIFARE_Classic launched by LibDriver.It provides the function of read block, write block, value increment, value decrement and so on. LibDriver is MISRA compliant.
 
+This repository includes submodule and you shold add "--recursive" to clone the whole project.
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
+
 ### Table of Contents
 
   - [Instruction](#Instruction)
@@ -38,6 +44,8 @@ LibDriver MIFARE_Classic is the full function driver of MIFARE_Classic launched 
 /datasheet includes MIFARE_Classic datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
+
+/misra includes the LibDriver MISRA code scanning results.
 
 ### Install
 
@@ -196,13 +204,13 @@ return 0;
 
 ### Document
 
-Online documents: https://www.libdriver.com/docs/mifare_classic/index.html
+Online documents: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html).
 
-Offline documents: /doc/html/index.html
+Offline documents: /doc/html/index.html.
 
 ### Contributing
 
-Please sent an e-mail to lishifenging@outlook.com
+Please refer to CONTRIBUTING.md.
 
 ### License
 
@@ -250,4 +258,4 @@ SOFTWARE.
 
 ### Contact Us
 
-Please sent an e-mail to lishifenging@outlook.com
+Please sent an e-mail to lishifenging@outlook.com.

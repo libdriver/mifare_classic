@@ -12,6 +12,12 @@
 
 LibDriver MIFARE_ Classic是LibDriver推出的MIFARE_ Classic全功能驅動，該驅動提供塊讀取，塊寫入，數值新增，數值减少等功能並且它符合MISRA標準。
 
+本倉庫包含子模塊，您需要增加“--recursive”選項完整克隆整個工程。
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
+
 ### 目錄
 
   - [說明](#說明)
@@ -38,6 +44,8 @@ LibDriver MIFARE_ Classic是LibDriver推出的MIFARE_ Classic全功能驅動，�
 /datasheet目錄包含了MIFARE_Classic數據手冊。
 
 /project目錄包含了常用Linux與單片機開發板的工程樣例。所有工程均採用shell腳本作為調試方法，詳細內容可參考每個工程裡面的README.md。
+
+/misra目錄包含了LibDriver MISRA程式碼掃描結果。
 
 ### 安裝
 
@@ -196,13 +204,13 @@ return 0;
 
 ### 文檔
 
-在線文檔: https://www.libdriver.com/docs/mifare_classic/index.html
+在線文檔: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html)。
 
-離線文檔: /doc/html/index.html
+離線文檔: /doc/html/index.html。
 
 ### 貢獻
 
-請聯繫lishifenging@outlook.com
+請參攷CONTRIBUTING.md。
 
 ### 版權
 
@@ -218,4 +226,4 @@ MIT 許可證（MIT）
 
 ### 聯繫我們
 
-請聯繫lishifenging@outlook.com
+請聯繫lishifenging@outlook.com。

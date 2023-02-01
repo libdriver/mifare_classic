@@ -108,7 +108,7 @@ file(GLOB MAIN
 add_library(${CMAKE_PROJECT_NAME}_static STATIC ${SRCS})
 
 # add the definitions
-target_compile_definitions(${CMAKE_PROJECT_NAME}_static PRIVATE USE_DRIVER_MFRC522)
+target_compile_definitions(${CMAKE_PROJECT_NAME}_static PRIVATE USE_DRIVER_MFRC522 NO_DEBUG)
 
 # set the static library include directories
 target_include_directories(${CMAKE_PROJECT_NAME}_static PRIVATE ${INC_DIRS})
@@ -131,7 +131,7 @@ set_target_properties(${CMAKE_PROJECT_NAME}_static PROPERTIES VERSION ${${CMAKE_
 add_library(${CMAKE_PROJECT_NAME} SHARED ${SRCS})
 
 # add the definitions
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE USE_DRIVER_MFRC522)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE USE_DRIVER_MFRC522 NO_DEBUG)
 
 # set the executable program include directories
 target_include_directories(${CMAKE_PROJECT_NAME}
@@ -160,7 +160,7 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES VERSION ${${CMAKE_PROJECT
 add_executable(${CMAKE_PROJECT_NAME}_exe ${MAIN})
 
 # add the definitions
-target_compile_definitions(${CMAKE_PROJECT_NAME}_exe PRIVATE USE_DRIVER_MFRC522)
+target_compile_definitions(${CMAKE_PROJECT_NAME}_exe PRIVATE USE_DRIVER_MFRC522 NO_DEBUG)
 
 # set the executable program include directories
 target_include_directories(${CMAKE_PROJECT_NAME}_exe PRIVATE ${INC_DIRS})

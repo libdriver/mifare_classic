@@ -12,6 +12,12 @@ NXP Semiconductors는 ISO/IEC 14443 Type A에 따라 비접촉 스마트 카드�
 
 LibDriver MIFARE_Classic은 LibDriver에서 출시한 MIFARE_Classic의 전체 기능 드라이버입니다. 읽기 블록, 쓰기 블록, 값 증가, 값 감소 등의 기능을 제공합니다. LibDriver는 MISRA를 준수합니다.
 
+이 리포지토리에는 하위 모듈이 포함되어 있으며 전체 프로젝트를 복제하려면 "--recursive"를 추가해야 합니다.
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
+
 ### 콘텐츠
 
   - [설명](#설명)
@@ -38,6 +44,8 @@ LibDriver MIFARE_Classic은 LibDriver에서 출시한 MIFARE_Classic의 전체 �
 /datasheet 디렉토리에는 MIFARE_Classic데이터시트가 있습니다.
 
 /project 디렉토리에는 일반적으로 사용되는 Linux 및 마이크로컨트롤러 개발 보드의 프로젝트 샘플이 포함되어 있습니다. 모든 프로젝트는 디버깅 방법으로 셸 스크립트를 사용하며, 자세한 내용은 각 프로젝트의 README.md를 참조하십시오.
+
+/misra 에는 LibDriver misra 코드 검색 결과가 포함됩니다.
 
 ### 설치
 
@@ -196,13 +204,13 @@ return 0;
 
 ### 문서
 
-온라인 문서: https://www.libdriver.com/docs/mifare_classic/index.html
+온라인 문서: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html).
 
-오프라인 문서: /doc/html/index.html
+오프라인 문서: /doc/html/index.html.
 
 ### 기고
 
-연락주세요lishifenging@outlook.com
+CONTRIBUTING.md 를 참조하십시오.
 
 ### 저작권
 
@@ -218,4 +226,4 @@ MIT 라이선스(MIT)
 
 ### 문의하기
 
-연락주세요lishifenging@outlook.com
+연락주세요lishifenging@outlook.com.
