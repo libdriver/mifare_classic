@@ -1,7 +1,7 @@
 [English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
-<img src="/doc/image/logo.png"/>
+<img src="/doc/image/logo.svg" width="400" height="150"/>
 </div>
 
 ## LibDriver MIFARE_Classic
@@ -11,6 +11,12 @@
 恩智浦半导体开发的MIFARE Classic EV1 非接触式 IC MF1S50yyX/V1适用于符合 ISO/IEC 14443 TypeA 标准的非接触式智能卡。 搭载 1K 内存的 MIFARE Classic EV1（即 MF1S50yyX/V1 IC）用于公共交通票务等应用， 也可用于各种其他应用。MIFARE_Classic可被用于公共交通，电子收费，校园卡等领域。
 
 LibDriver MIFARE_Classic是LibDriver推出的MIFARE_Classic全功能驱动，该驱动提供块读取，块写入，数值增加，数值减少等功能并且它符合MISRA标准。
+
+本仓库包含子模块，您需要增加“--recursive”选项完整克隆整个工程。
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
 
 ### 目录
 
@@ -38,6 +44,8 @@ LibDriver MIFARE_Classic是LibDriver推出的MIFARE_Classic全功能驱动，该
 /datasheet目录包含了MIFARE_Classic数据手册。
 
 /project目录包含了常用Linux与单片机开发板的工程样例。所有工程均采用shell脚本作为调试方法，详细内容可参考每个工程里面的README.md。
+
+/misra目录包含了LibDriver MISRA代码扫描结果。
 
 ### 安装
 
@@ -196,13 +204,13 @@ return 0;
 
 ### 文档
 
-在线文档: https://www.libdriver.com/docs/mifare_classic/index.html
+在线文档: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html)。
 
-离线文档: /doc/html/index.html
+离线文档: /doc/html/index.html。
 
 ### 贡献
 
-请联系lishifenging@outlook.com
+请参考CONTRIBUTING.md。
 
 ### 版权
 
@@ -218,4 +226,4 @@ MIT 许可证（MIT）
 
 ### 联系我们
 
-请联系lishifenging@outlook.com
+请联系lishifenging@outlook.com。

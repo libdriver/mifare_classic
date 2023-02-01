@@ -99,7 +99,8 @@ MAIN := $(SRCS) \
 		$(wildcard ./src/main.c)
 
 # set the definitions
-DEFS := -D USE_DRIVER_MFRC522
+DEFS := -D USE_DRIVER_MFRC522 \
+		-D NO_DEBUG
 
 # set flags of the compiler
 CFLAGS := -O3 \

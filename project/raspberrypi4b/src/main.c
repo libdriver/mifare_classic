@@ -36,6 +36,8 @@
 
 #include "driver_mifare_classic_basic.h"
 #include "driver_mifare_classic_card_test.h"
+#include <getopt.h>
+#include <math.h>
 #include <stdlib.h>
 
 /**
@@ -50,180 +52,342 @@
  */
 uint8_t mifare_classic(uint8_t argc, char **argv)
 {
+    int c;
+    int longindex = 0;
+    const char short_options[] = "hipe:t:";
+    const struct option long_options[] =
+    {
+        {"help", no_argument, NULL, 'h'},
+        {"information", no_argument, NULL, 'i'},
+        {"port", no_argument, NULL, 'p'},
+        {"example", required_argument, NULL, 'e'},
+        {"test", required_argument, NULL, 't'},
+        {"block", required_argument, NULL, 1},
+        {"data", required_argument, NULL, 2},
+        {"key", required_argument, NULL, 3},
+        {"key-type", required_argument, NULL, 4},
+        {"value", required_argument, NULL, 5},
+        {NULL, 0, NULL, 0},
+    };
+    char type[33] = "unknow";
+    int32_t value = 0x00000000;
+    uint8_t block = 0x00;
+    uint8_t data[16] = {0};
+    uint8_t key[6] = {0};
+    mifare_classic_authentication_key_t key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_A;
+    
+    /* if no params */
     if (argc == 1)
     {
+        /* goto the help */
         goto help;
     }
-    else if (argc == 2)
+    
+    /* init 0 */
+    optind = 0;
+    
+    /* parse */
+    do
     {
-        if (strcmp("-i", argv[1]) == 0)
+        /* parse the args */
+        c = getopt_long(argc, argv, short_options, long_options, &longindex);
+        
+        /* judge the result */
+        switch (c)
         {
-            mifare_classic_info_t info;
-            
-            /* print mifare_classic info */
-            mifare_classic_info(&info);
-            mifare_classic_interface_debug_print("mifare_classic: chip is %s.\n", info.chip_name);
-            mifare_classic_interface_debug_print("mifare_classic: manufacturer is %s.\n", info.manufacturer_name);
-            mifare_classic_interface_debug_print("mifare_classic: interface is %s.\n", info.interface);
-            mifare_classic_interface_debug_print("mifare_classic: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
-            mifare_classic_interface_debug_print("mifare_classic: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
-            mifare_classic_interface_debug_print("mifare_classic: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
-            mifare_classic_interface_debug_print("mifare_classic: max current is %0.2fmA.\n", info.max_current_ma);
-            mifare_classic_interface_debug_print("mifare_classic: max temperature is %0.1fC.\n", info.temperature_max);
-            mifare_classic_interface_debug_print("mifare_classic: min temperature is %0.1fC.\n", info.temperature_min);
-            
-            return 0;
-        }
-        else if (strcmp("-p", argv[1]) == 0)
-        {
-            /* print pin connection */
-            mifare_classic_interface_debug_print("mifare_classic: SPI interface SCK connected to GPIO11(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: SPI interface MISO connected to GPIO9(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: SPI interface MOSI connected to GPIO10(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: SPI interface CS connected to GPIO8(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: IIC interface SCL connected to GPIO3(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: IIC interface SDA connected to GPIO2(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: UART interface TX connected to GPIO14(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: UART interface RX connected to GPIO15(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: INT connected to GPIO17(BCM).\n");
-            mifare_classic_interface_debug_print("mifare_classic: RESET connected to GPIO26(BCM).\n");
-            
-            return 0;
-        }
-        else if (strcmp("-h", argv[1]) == 0)
-        {
-            /* show mifare_classic help */
-            help:
-            
-            mifare_classic_interface_debug_print("mifare_classic -i\n\tshow mifare_classic chip and driver information.\n");
-            mifare_classic_interface_debug_print("mifare_classic -h\n\tshow mifare_classic help.\n");
-            mifare_classic_interface_debug_print("mifare_classic -p\n\tshow mifare_classic pin connections of the current board.\n");
-            mifare_classic_interface_debug_print("mifare_classic -t card\n\trun mifare_classic card test.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c halt\n\tchip halt.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c wake_up\n\twake up the chip.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> read <block>\n\tread the block."
-                                                 "block is the read block.keys is the authentication keys.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> write <block> <n>\n\twrite the block."
-                                                 "block is the written block.keys is the authentication keys.n is the written data.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> value -init <block> <n>\n\tinit as a value block."
-                                                 "block is the set block.keys is the authentication keys.n is the inted value.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> value -write <block> <n>\n\twrite a value to the block."
-                                                 "block is the set block.keys is the authentication keys.n is the written value.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> value -read <block>\n\tread a value from the block."
-                                                 "block is the set block.keys is the authentication keys.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> value -increment <block> <n>\n\tincrement the value."
-                                                 "block is the set block.keys is the authentication keys.n is the increment value.\n");
-            mifare_classic_interface_debug_print("mifare_classic -c -k (a | b) <keys> value -decrement <block> <n>\n\tdecrement the value."
-                                                 "block is the set block.keys is the authentication keys.n is the decrement value.\n");
-            
-            return 0;
-        }
-        else
-        {
-            return 5;
-        }
-    }
-    else if (argc == 3)
-    {
-        if (strcmp("-t", argv[1]) == 0)
-        {
-            if (strcmp("card", argv[2]) == 0)
+            /* help */
+            case 'h' :
             {
-                uint8_t res;
+                /* set the type */
+                memset(type, 0, sizeof(char) * 33);
+                snprintf(type, 32, "h");
                 
-                /* run the card test */
-                res = mifare_classic_card_test();
-                if (res != 0)
+                break;
+            }
+            
+            /* information */
+            case 'i' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 33);
+                snprintf(type, 32, "i");
+                
+                break;
+            }
+            
+            /* port */
+            case 'p' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 33);
+                snprintf(type, 32, "p");
+                
+                break;
+            }
+            
+            /* example */
+            case 'e' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 33);
+                snprintf(type, 32, "e_%s", optarg);
+                
+                break;
+            }
+            
+            /* test */
+            case 't' :
+            {
+                /* set the type */
+                memset(type, 0, sizeof(char) * 33);
+                snprintf(type, 32, "t_%s", optarg);
+                
+                break;
+            }
+            
+            /* block */
+            case 1 :
+            {
+                char *p;
+                uint16_t l;
+                uint16_t i;
+                uint64_t hex_data;
+
+                /* set the data */
+                l = strlen(optarg);
+
+                /* check the header */
+                if (l >= 2)
                 {
-                    return 1;
+                    if (strncmp(optarg, "0x", 2) == 0)
+                    {
+                        p = optarg + 2;
+                        l -= 2;
+                    }
+                    else if (strncmp(optarg, "0X", 2) == 0)
+                    {
+                        p = optarg + 2;
+                        l -= 2;
+                    }
+                    else
+                    {
+                        p = optarg;
+                    }
+                }
+                else
+                {
+                    p = optarg;
                 }
                 
-                return 0;
-            }
-            else
-            {
-                return 5;
-            }
-        }
-        else if (strcmp("-c", argv[1]) == 0)
-        {
-            if (strcmp("halt", argv[2]) == 0)
-            {
-                uint8_t res;
-                
-                /* init */
-                res = mifare_classic_basic_init();
-                if (res != 0)
+                /* init 0 */
+                hex_data = 0;
+
+                /* loop */
+                for (i = 0; i < l; i++)
                 {
-                    return 1;
+                    if ((p[i] <= '9') && (p[i] >= '0'))
+                    {
+                        hex_data += (p[i] - '0') * (uint32_t)pow(16, l - i - 1);
+                    }
+                    else if ((p[i] <= 'F') && (p[i] >= 'A'))
+                    {
+                        hex_data += ((p[i] - 'A') + 10) * (uint32_t)pow(16, l - i - 1);
+                    }
+                    else if ((p[i] <= 'f') && (p[i] >= 'a'))
+                    {
+                        hex_data += ((p[i] - 'a') + 10) * (uint32_t)pow(16, l - i - 1);
+                    }
+                    else
+                    {
+                        return 5;
+                    }
                 }
                 
-                /* halt */
-                res = mifare_classic_basic_halt();
-                if (res != 0)
-                {
-                    (void)mifare_classic_basic_deinit();
-                    
-                    return 1;
-                }
-                mifare_classic_interface_debug_print("mifare_classic: halt.\n");
+                /* set the block */
+                block = hex_data & 0xFF;
                 
-                (void)mifare_classic_basic_deinit();
-                
-                return 0;
+                break;
             }
-            else if (strcmp("wake_up", argv[2]) == 0)
+            
+            /* data */
+            case 2 :
             {
-                uint8_t res;
-                
-                /* init */
-                res = mifare_classic_basic_init();
-                if (res != 0)
-                {
-                    return 1;
-                }
-                
-                /* wake_up */
-                res = mifare_classic_basic_wake_up();
-                if (res != 0)
-                {
-                    (void)mifare_classic_basic_deinit();
-                    
-                    return 1;
-                }
-                mifare_classic_interface_debug_print("mifare_classic: wake up.\n");
-                
-                (void)mifare_classic_basic_deinit();
-                
-                return 0;
-            }
-            else
-            {
-                return 5;
-            }
-        }
-        else
-        {
-            return 5;
-        }
-    }
-    else if (argc == 7)
-    {
-        if (strcmp("-c", argv[1]) == 0)
-        {
-            if (strcmp("-k", argv[2]) == 0)
-            {
-                mifare_classic_authentication_key_t key_type;
-                uint8_t i;
-                uint8_t res;
                 uint8_t size;
-                uint8_t key[6];
+                uint8_t i;
+                char *p;
                 
-                if (strcmp("a", argv[3]) == 0)
+                /* get the size */
+                size = (uint8_t)strlen(optarg);
+                
+                /* check the size */
+                if ((size == 32) || (size == 34))
+                {
+                    /* check ok */
+                }
+                else
+                {
+                    return 5;
+                }
+
+                /* check the size */
+                if (strncmp(optarg, "0x", 2) == 0)
+                {
+                    p = optarg + 2;
+                    size -= 2;
+                }
+                else if (strncmp(optarg, "0X", 2) == 0)
+                {
+                    p = optarg + 2;
+                    size -= 2;
+                }
+                else
+                {
+                    p = optarg;
+                }
+                
+                /* check the size */
+                if (size != 32)
+                {
+                    return 5;
+                }
+
+                /* set the data */
+                for (i = 0; i < size; i += 2)
+                {
+                    if (('A' <= p[i]) && (p[i] <= 'Z'))
+                    {
+                        data[i / 2] = p[i] - 'A' + 10;
+                        data[i / 2] *= 16;
+                    }
+                    else if (('a' <= p[i]) && (p[i] <= 'z'))
+                    {
+                        data[i / 2] = p[i] - 'a' + 10;
+                        data[i / 2] *= 16;
+                    }
+                    else if (('0' <= p[i]) && (p[i] <= '9'))
+                    {
+                        data[i / 2] = p[i] - '0';
+                        data[i / 2] *= 16;
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                    if (('A' <= p[i + 1]) && (p[i + 1] <= 'Z'))
+                    {
+                        data[i / 2 ] += p[i + 1] - 'A' + 10;
+                    }
+                    else if (('a' <= p[i + 1]) && (p[i + 1] <= 'z'))
+                    {
+                        data[i / 2 ] += p[i + 1] - 'a' + 10;
+                    }
+                    else if (('0' <= p[i + 1]) && (p[i + 1] <= '9'))
+                    {
+                        data[i / 2 ] += p[i + 1] - '0';
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                }
+
+                break;
+            }
+            
+            /* key */
+            case 3 :
+            {
+                uint8_t size;
+                uint8_t i;
+                char *p;
+                
+                /* get the size */
+                size = (uint8_t)strlen(optarg);
+                
+                /* check the size */
+                if ((size == 12) || (size == 14))
+                {
+                    /* check ok */
+                }
+                else
+                {
+                    return 5;
+                }
+
+                /* check the size */
+                if (strncmp(optarg, "0x", 2) == 0)
+                {
+                    p = optarg + 2;
+                    size -= 2;
+                }
+                else if (strncmp(optarg, "0X", 2) == 0)
+                {
+                    p = optarg + 2;
+                    size -= 2;
+                }
+                else
+                {
+                    p = optarg;
+                }
+                
+                /* check the size */
+                if (size != 12)
+                {
+                    return 5;
+                }
+
+                /* copy data */
+                for (i = 0; i < size; i += 2)
+                {
+                    if (('A' <= p[i]) && (p[i] <= 'Z'))
+                    {
+                        key[i / 2] = p[i] - 'A' + 10;
+                        key[i / 2] *= 16;
+                    }
+                    else if (('a' <= p[i]) && (p[i] <= 'z'))
+                    {
+                        key[i / 2] = p[i] - 'a' + 10;
+                        key[i / 2] *= 16;
+                    }
+                    else if (('0' <= p[i]) && (p[i] <= '9'))
+                    {
+                        key[i / 2] = p[i] - '0';
+                        key[i / 2] *= 16;
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                    if (('A' <= p[i + 1]) && (p[i + 1] <= 'Z'))
+                    {
+                        key[i / 2 ] += p[i + 1] - 'A' + 10;
+                    }
+                    else if (('a' <= p[i + 1]) && (p[i + 1] <= 'z'))
+                    {
+                        key[i / 2 ] += p[i + 1] - 'a' + 10;
+                    }
+                    else if (('0' <= p[i + 1]) && (p[i + 1] <= '9'))
+                    {
+                        key[i / 2 ] += p[i + 1] - '0';
+                    }
+                    else
+                    {
+                        return 5;
+                    }
+                }
+
+                break;
+            }
+             
+            /* key-type */
+            case 4 :
+            {
+                /* set the key type */
+                if (strcmp("A", optarg) == 0)
                 {
                     key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_A;
                 }
-                else if (strcmp("b", argv[3]) == 0)
+                else if (strcmp("B", optarg) == 0)
                 {
                     key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_B;
                 }
@@ -231,687 +395,624 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
                 {
                     return 5;
                 }
-                
-                size = (uint8_t)strlen(argv[4]);
-                for (i = 0; i < size; i += 2)
-                {
-                    if (('A' <= argv[4][i]) && (argv[4][i] <= 'Z'))
-                    {
-                        key[i / 2] = argv[4][i] - 'A' + 10;
-                        key[i / 2] *= 16;
-                    }
-                    else if (('a' <= argv[4][i]) && (argv[4][i] <= 'z'))
-                    {
-                        key[i / 2] = argv[4][i] - 'a' + 10;
-                        key[i / 2] *= 16;
-                    }
-                    else if (('0' <= argv[4][i]) && (argv[4][i] <= '9'))
-                    {
-                        key[i / 2] = argv[4][i] - '0';
-                        key[i / 2] *= 16;
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                    
-                    if (('A' <= argv[4][i + 1]) && (argv[4][i + 1] <= 'Z'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - 'A' + 10;
-                    }
-                    else if (('a' <= argv[4][i + 1]) && (argv[4][i + 1] <= 'z'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - 'a' + 10;
-                    }
-                    else if (('0' <= argv[4][i + 1]) && (argv[4][i + 1] <= '9'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - '0';
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                }
-                
-                if (strcmp("read", argv[5]) == 0)
-                {
-                    mifare_classic_type_t type; 
-                    uint8_t id[4];
-                    uint8_t data[16];
-                    
-                    /* init */
-                    res = mifare_classic_basic_init();
-                    if (res != 0)
-                    {
-                        return 1;
-                    }
-                    
-                    /* search */
-                    res = mifare_classic_basic_search(&type, id, 50);
-                    if (res != 0)
-                    {
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 1;
-                    }
-                    
-                    /* ouput the type */
-                    if (type == MIFARE_CLASSIC_TYPE_S50)
-                    {
-                        mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                    }
-                    else if (type == MIFARE_CLASSIC_TYPE_S70)
-                    {
-                        mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                    }
-                    else
-                    {
-                        mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 1;
-                    }
-                    mifare_classic_interface_debug_print("mifare_classic: id is ");
-                    for (i = 0; i < 4; i++)
-                    {
-                        mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                    }
-                    mifare_classic_interface_debug_print("\n");
-                    
-                    /* read */
-                    res = mifare_classic_basic_read((uint8_t)atoi(argv[6]), data, key_type, key);
-                    if (res != 0)
-                    {
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 1;
-                    }
-                    
-                    mifare_classic_interface_debug_print("mifare_classic: block is ");
-                    for (i = 0; i < 16; i++)
-                    {
-                        mifare_classic_interface_debug_print("0x%02X ", data[i]);
-                    }
-                    mifare_classic_interface_debug_print("\n");
-                    
-                    (void)mifare_classic_basic_deinit();
-                    
-                    return 0;
-                }
-                else
-                {
-                    return 5;
-                }
+
+                break;
             }
-            else
+            
+            /* value */
+            case 5 :
+            {
+                /* set the value */
+                value = atol(optarg);
+
+                break;
+            }
+            
+            /* the end */
+            case -1 :
+            {
+                break;
+            }
+            
+            /* others */
+            default :
             {
                 return 5;
             }
         }
-        else
-        {
-            return 5;
-        }
-    }
-    else if (argc == 8)
+    } while (c != -1);
+
+    /* run the function */
+    if (strcmp("t_card", type) == 0)
     {
-        if (strcmp("-c", argv[1]) == 0)
+        uint8_t res;
+        
+        /* run the card test */
+        res = mifare_classic_card_test();
+        if (res != 0)
         {
-            if (strcmp("-k", argv[2]) == 0)
-            {
-                mifare_classic_authentication_key_t key_type;
-                uint8_t i;
-                uint8_t res;
-                uint8_t size;
-                uint8_t key[6];
-                
-                if (strcmp("a", argv[3]) == 0)
-                {
-                    key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_A;
-                }
-                else if (strcmp("b", argv[3]) == 0)
-                {
-                    key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_B;
-                }
-                else
-                {
-                    return 5;
-                }
-                
-                size = (uint8_t)strlen(argv[4]);
-                for (i = 0; i < size; i += 2)
-                {
-                    if (('A' <= argv[4][i]) && (argv[4][i] <= 'Z'))
-                    {
-                        key[i / 2] = argv[4][i] - 'A' + 10;
-                        key[i / 2] *= 16;
-                    }
-                    else if (('a' <= argv[4][i]) && (argv[4][i] <= 'z'))
-                    {
-                        key[i / 2] = argv[4][i] - 'a' + 10;
-                        key[i / 2] *= 16;
-                    }
-                    else if (('0' <= argv[4][i]) && (argv[4][i] <= '9'))
-                    {
-                        key[i / 2] = argv[4][i] - '0';
-                        key[i / 2] *= 16;
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                    
-                    if (('A' <= argv[4][i + 1]) && (argv[4][i + 1] <= 'Z'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - 'A' + 10;
-                    }
-                    else if (('a' <= argv[4][i + 1]) && (argv[4][i + 1] <= 'z'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - 'a' + 10;
-                    }
-                    else if (('0' <= argv[4][i + 1]) && (argv[4][i + 1] <= '9'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - '0';
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                }
-                
-                if (strcmp("write", argv[5]) == 0)
-                {
-                    mifare_classic_type_t type; 
-                    uint8_t id[4];
-                    uint8_t data[16];
-                    
-                    size = (uint8_t)strlen(argv[7]);
-                    for (i = 0; i < size; i += 2)
-                    {
-                        if (('A' <= argv[7][i]) && (argv[7][i] <= 'Z'))
-                        {
-                            data[i / 2] = argv[7][i] - 'A' + 10;
-                            data[i / 2] *= 16;
-                        }
-                        else if (('a' <= argv[7][i]) && (argv[7][i] <= 'z'))
-                        {
-                            data[i / 2] = argv[7][i] - 'a' + 10;
-                            data[i / 2] *= 16;
-                        }
-                        else if (('0' <= argv[7][i]) && (argv[7][i] <= '9'))
-                        {
-                            data[i / 2] = argv[7][i] - '0';
-                            data[i / 2] *= 16;
-                        }
-                        else
-                        {
-                            return 5;
-                        }
-                        
-                        if (('A' <= argv[7][i + 1]) && (argv[7][i + 1] <= 'Z'))
-                        {
-                            data[i / 2 ] += argv[7][i + 1] - 'A' + 10;
-                        }
-                        else if (('a' <= argv[7][i + 1]) && (argv[7][i + 1] <= 'z'))
-                        {
-                            data[i / 2 ] += argv[7][i + 1] - 'a' + 10;
-                        }
-                        else if (('0' <= argv[7][i + 1]) && (argv[7][i + 1] <= '9'))
-                        {
-                            data[i / 2 ] += argv[7][i + 1] - '0';
-                        }
-                        else
-                        {
-                            return 5;
-                        }
-                    }
-                    
-                    /* init */
-                    res = mifare_classic_basic_init();
-                    if (res != 0)
-                    {
-                        return 1;
-                    }
-                    
-                    /* search */
-                    res = mifare_classic_basic_search(&type, id, 50);
-                    if (res != 0)
-                    {
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 1;
-                    }
-                    
-                    /* ouput the type */
-                    if (type == MIFARE_CLASSIC_TYPE_S50)
-                    {
-                        mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                    }
-                    else if (type == MIFARE_CLASSIC_TYPE_S70)
-                    {
-                        mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                    }
-                    else
-                    {
-                        mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 1;
-                    }
-                    mifare_classic_interface_debug_print("mifare_classic: id is ");
-                    for (i = 0; i < 4; i++)
-                    {
-                        mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                    }
-                    mifare_classic_interface_debug_print("\n");
-                    
-                    mifare_classic_interface_debug_print("mifare_classic: data is ");
-                    for (i = 0; i < 16; i++)
-                    {
-                        mifare_classic_interface_debug_print("0x%02X ", data[i]);
-                    }
-                    mifare_classic_interface_debug_print("\n");
-                    
-                    /* write */
-                    res = mifare_classic_basic_write((uint8_t)atoi(argv[6]), data, key_type, key);
-                    if (res != 0)
-                    {
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 1;
-                    }
-                    
-                    (void)mifare_classic_basic_deinit();
-                    
-                    return 0;
-                }
-                else if (strcmp("value", argv[5]) == 0)
-                {
-                    mifare_classic_type_t type; 
-                    uint8_t id[4];
-                    uint8_t addr;
-                    int32_t value;
-                    
-                    if (strcmp("-read", argv[6]) == 0)
-                    {
-                        /* init */
-                        res = mifare_classic_basic_init();
-                        if (res != 0)
-                        {
-                            return 1;
-                        }
-                        /* search */
-                        res = mifare_classic_basic_search(&type, id, 50);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        
-                        /* ouput the type */
-                        if (type == MIFARE_CLASSIC_TYPE_S50)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                        }
-                        else if (type == MIFARE_CLASSIC_TYPE_S70)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                        }
-                        else
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: id is ");
-                        for (i = 0; i < 4; i++)
-                        {
-                            mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                        }
-                        mifare_classic_interface_debug_print("\n");
-                        
-                        /* read the value */
-                        res = mifare_classic_basic_value_read((uint8_t)atoi(argv[7]), &value, &addr, key_type, key);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: read block%d value %d.\n", (uint8_t)atoi(argv[7]), value);
-                        
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 0;
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                }
-                else
-                {
-                    return 5;
-                }
-            }
-            else
-            {
-                return 5;
-            }
+            return 1;
         }
-        else
-        {
-            return 5;
-        }
+        
+        return 0;
     }
-    else if (argc == 9)
+    else if (strcmp("e_halt", type) == 0)
     {
-        if (strcmp("-c", argv[1]) == 0)
+        uint8_t res;
+        
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
         {
-            if (strcmp("-k", argv[2]) == 0)
-            {
-                mifare_classic_authentication_key_t key_type;
-                uint8_t i;
-                uint8_t res;
-                uint8_t size;
-                uint8_t key[6];
-                
-                if (strcmp("a", argv[3]) == 0)
-                {
-                    key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_A;
-                }
-                else if (strcmp("b", argv[3]) == 0)
-                {
-                    key_type = MIFARE_CLASSIC_AUTHENTICATION_KEY_B;
-                }
-                else
-                {
-                    return 5;
-                }
-                
-                size = (uint8_t)strlen(argv[4]);
-                for (i = 0; i < size; i += 2)
-                {
-                    if (('A' <= argv[4][i]) && (argv[4][i] <= 'Z'))
-                    {
-                        key[i / 2] = argv[4][i] - 'A' + 10;
-                        key[i / 2] *= 16;
-                    }
-                    else if (('a' <= argv[4][i]) && (argv[4][i] <= 'z'))
-                    {
-                        key[i / 2] = argv[4][i] - 'a' + 10;
-                        key[i / 2] *= 16;
-                    }
-                    else if (('0' <= argv[4][i]) && (argv[4][i] <= '9'))
-                    {
-                        key[i / 2] = argv[4][i] - '0';
-                        key[i / 2] *= 16;
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                    
-                    if (('A' <= argv[4][i + 1]) && (argv[4][i + 1] <= 'Z'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - 'A' + 10;
-                    }
-                    else if (('a' <= argv[4][i + 1]) && (argv[4][i + 1] <= 'z'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - 'a' + 10;
-                    }
-                    else if (('0' <= argv[4][i + 1]) && (argv[4][i + 1] <= '9'))
-                    {
-                        key[i / 2 ] += argv[4][i + 1] - '0';
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                }
-                
-                if (strcmp("value", argv[5]) == 0)
-                {
-                    mifare_classic_type_t type; 
-                    uint8_t id[4];
-                    
-                    if (strcmp("-init", argv[6]) == 0)
-                    {
-                        /* init */
-                        res = mifare_classic_basic_init();
-                        if (res != 0)
-                        {
-                            return 1;
-                        }
-                        /* search */
-                        res = mifare_classic_basic_search(&type, id, 50);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        
-                        /* ouput the type */
-                        if (type == MIFARE_CLASSIC_TYPE_S50)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                        }
-                        else if (type == MIFARE_CLASSIC_TYPE_S70)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                        }
-                        else
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: id is ");
-                        for (i = 0; i < 4; i++)
-                        {
-                            mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                        }
-                        mifare_classic_interface_debug_print("\n");
-                        
-                        res = mifare_classic_basic_value_init((uint8_t)atoi(argv[7]), atoi(argv[8]), (uint8_t)atoi(argv[7]),
-                                                              key_type, key);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: init block%d as value %d.\n", (uint8_t)atoi(argv[7]), atoi(argv[8]));
-                        
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 0;
-                    }
-                    else if (strcmp("-write", argv[6]) == 0)
-                    {
-                        /* init */
-                        res = mifare_classic_basic_init();
-                        if (res != 0)
-                        {
-                            return 1;
-                        }
-                        /* search */
-                        res = mifare_classic_basic_search(&type, id, 50);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        
-                        /* ouput the type */
-                        if (type == MIFARE_CLASSIC_TYPE_S50)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                        }
-                        else if (type == MIFARE_CLASSIC_TYPE_S70)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                        }
-                        else
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: id is ");
-                        for (i = 0; i < 4; i++)
-                        {
-                            mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                        }
-                        mifare_classic_interface_debug_print("\n");
-                        
-                        res = mifare_classic_basic_value_write((uint8_t)atoi(argv[7]), atoi(argv[8]), (uint8_t)atoi(argv[7]),
-                                                               key_type, key);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: write block%d %d.\n", (uint8_t)atoi(argv[7]), atoi(argv[8]));
-                        
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 0;
-                    }
-                    else if (strcmp("-increment", argv[6]) == 0)
-                    {
-                        /* init */
-                        res = mifare_classic_basic_init();
-                        if (res != 0)
-                        {
-                            return 1;
-                        }
-                        /* search */
-                        res = mifare_classic_basic_search(&type, id, 50);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        
-                        /* ouput the type */
-                        if (type == MIFARE_CLASSIC_TYPE_S50)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                        }
-                        else if (type == MIFARE_CLASSIC_TYPE_S70)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                        }
-                        else
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: id is ");
-                        for (i = 0; i < 4; i++)
-                        {
-                            mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                        }
-                        mifare_classic_interface_debug_print("\n");
-                        
-                        res = mifare_classic_basic_value_increment((uint8_t)atoi(argv[7]), (uint32_t)atoi(argv[8]), key_type, key);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: increment block%d %d.\n", (uint8_t)atoi(argv[7]), (uint32_t)atoi(argv[8]));
-                        
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 0;
-                    }
-                    else if (strcmp("-decrement", argv[6]) == 0)
-                    {
-                        /* init */
-                        res = mifare_classic_basic_init();
-                        if (res != 0)
-                        {
-                            return 1;
-                        }
-                        /* search */
-                        res = mifare_classic_basic_search(&type, id, 50);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        
-                        /* ouput the type */
-                        if (type == MIFARE_CLASSIC_TYPE_S50)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
-                        }
-                        else if (type == MIFARE_CLASSIC_TYPE_S70)
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
-                        }
-                        else
-                        {
-                            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: id is ");
-                        for (i = 0; i < 4; i++)
-                        {
-                            mifare_classic_interface_debug_print("0x%02X ", id[i]);
-                        }
-                        mifare_classic_interface_debug_print("\n");
-                        
-                        res = mifare_classic_basic_value_decrement((uint8_t)atoi(argv[7]), (uint32_t)atoi(argv[8]), key_type, key);
-                        if (res != 0)
-                        {
-                            (void)mifare_classic_basic_deinit();
-                            
-                            return 1;
-                        }
-                        mifare_classic_interface_debug_print("mifare_classic: decrement block%d %d.\n", (uint8_t)atoi(argv[7]), (uint32_t)atoi(argv[8]));
-                        
-                        (void)mifare_classic_basic_deinit();
-                        
-                        return 0;
-                    }
-                    else
-                    {
-                        return 5;
-                    }
-                }
-                else
-                {
-                    return 5;
-                }
-            }
-            else
-            {
-                return 5;
-            }
+            return 1;
+        }
+        
+        /* halt */
+        res = mifare_classic_basic_halt();
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+
+        /* output */
+        mifare_classic_interface_debug_print("mifare_classic: halt.\n");
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_wake-up", type) == 0)
+    {
+        uint8_t res;
+        
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+        
+        /* wake_up */
+        res = mifare_classic_basic_wake_up();
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+
+        /* output */
+        mifare_classic_interface_debug_print("mifare_classic: wake up.\n");
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_read", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+        
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+        
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
         }
         else
         {
-            return 5;
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
         }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* read */
+        res = mifare_classic_basic_read(block, data, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* output */
+        mifare_classic_interface_debug_print("mifare_classic: block is ");
+        for (i = 0; i < 16; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", data[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
     }
-    /* param is invalid */
+    else if (strcmp("e_write", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+        
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
+        }
+        else
+        {
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* output */
+        mifare_classic_interface_debug_print("mifare_classic: data is ");
+        for (i = 0; i < 16; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", data[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* write */
+        res = mifare_classic_basic_write(block, data, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_value-init", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
+        }
+        else
+        {
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* value init */
+        res = mifare_classic_basic_value_init(block, value, block, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: init block%d as value %d.\n", block, value);
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_value-write", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
+        }
+        else
+        {
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* value write */
+        res = mifare_classic_basic_value_write(block, value, block, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: write block%d %d.\n", block, value);
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_value-read", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t addr;
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+        int32_t value;
+
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
+        }
+        else
+        {
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* read value */
+        res = mifare_classic_basic_value_read(block, &value, &addr, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: read block%d value %d.\n", block, value);
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_value-increment", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
+        }
+        else
+        {
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* value increment */
+        res = mifare_classic_basic_value_increment(block, value, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: increment block%d %d.\n", block, value);
+        
+        /* basic deinit */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("e_value-decrement", type) == 0)
+    {
+        mifare_classic_type_t chip_type; 
+        uint8_t res;
+        uint8_t i;
+        uint8_t id[4];
+
+        /* basic init */
+        res = mifare_classic_basic_init();
+        if (res != 0)
+        {
+            return 1;
+        }
+
+        /* search */
+        res = mifare_classic_basic_search(&chip_type, id, 50);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        
+        /* ouput */
+        if (chip_type == MIFARE_CLASSIC_TYPE_S50)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
+        }
+        else if (chip_type == MIFARE_CLASSIC_TYPE_S70)
+        {
+            mifare_classic_interface_debug_print("mifare_classic: find S70 card.\n");
+        }
+        else
+        {
+            mifare_classic_interface_debug_print("mifare_classic: invalid type.\n");
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+        mifare_classic_interface_debug_print("mifare_classic: id is ");
+        for (i = 0; i < 4; i++)
+        {
+            mifare_classic_interface_debug_print("0x%02X ", id[i]);
+        }
+        mifare_classic_interface_debug_print("\n");
+        
+        /* value decrement */
+        res = mifare_classic_basic_value_decrement(block, value, key_type, key);
+        if (res != 0)
+        {
+            (void)mifare_classic_basic_deinit();
+            
+            return 1;
+        }
+
+        /* output */
+        mifare_classic_interface_debug_print("mifare_classic: decrement block%d %d.\n", block, value);
+        
+        /* basic deint */
+        (void)mifare_classic_basic_deinit();
+        
+        return 0;
+    }
+    else if (strcmp("h", type) == 0)
+    {
+        help:
+        mifare_classic_interface_debug_print("Usage:\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-i | --information)\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-h | --help)\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-p | --port)\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-t card | --test=card)\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e halt | --example=halt)\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e wake-up | --example=wake-up)\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e read | --example=read) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>]\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e write | --example=write) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>] [--data=<hex>]\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e value-init | --example=value-init) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>] [--value=<dec>]\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e value-write | --example=value-write) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>] [--value=<dec>]\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e value-read | --example=value-read) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>]\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e value-increment | --example=value-increment) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>] [--value=<dec>]\n");
+        mifare_classic_interface_debug_print("  mifare_classic (-e value-decrement | --example=value-decrement) [--key-type=<A | B>] [--key=<authentication>]\n");
+        mifare_classic_interface_debug_print("                 [--block=<addr>] [--value=<dec>]\n");
+        mifare_classic_interface_debug_print("\n");
+        mifare_classic_interface_debug_print("Options:\n");
+        mifare_classic_interface_debug_print("      --block=<addr>            Set the block address and it is hexadecimal.([default: 0x00])\n");
+        mifare_classic_interface_debug_print("      --data=<hex>              Set the input data and it is hexadecimal with 16 bytes(strlen=32).([default: 0x0123456789ABCDEF0123456789ABCDEF])\n");
+        mifare_classic_interface_debug_print("  -e <halt | wake-up | read | write | value-init | value-write | value-read | value-increment\n");
+        mifare_classic_interface_debug_print("     | value-decrement>, --example=<halt | wake-up | read | write | value-init | value-write\n");
+        mifare_classic_interface_debug_print("     | value-read | value-increment | value-decrement>\n");
+        mifare_classic_interface_debug_print("                                Run the driver example.\n");
+        mifare_classic_interface_debug_print("  -h, --help                    Show the help.\n");
+        mifare_classic_interface_debug_print("  -i, --information             Show the chip information.\n");
+        mifare_classic_interface_debug_print("      --key=<authentication>    Set the key of authentication and it is hexadecimal with 6 bytes(strlen=12).([default: 0xFFFFFFFFFFFF])\n");
+        mifare_classic_interface_debug_print("      --key-type=<A | B>        Set the key type of authentication.([default: A])\n");
+        mifare_classic_interface_debug_print("  -p, --port                    Display the pin connections of the current board.\n");
+        mifare_classic_interface_debug_print("  -t <card>, --test=<card>      Run the driver test.\n");
+        mifare_classic_interface_debug_print("      --value=<dec>             Set the input value.([default: 0])\n");
+
+        return 0;
+    }
+    else if (strcmp("i", type) == 0)
+    {
+        mifare_classic_info_t info;
+        
+        /* print mifare_classic info */
+        mifare_classic_info(&info);
+        mifare_classic_interface_debug_print("mifare_classic: chip is %s.\n", info.chip_name);
+        mifare_classic_interface_debug_print("mifare_classic: manufacturer is %s.\n", info.manufacturer_name);
+        mifare_classic_interface_debug_print("mifare_classic: interface is %s.\n", info.interface);
+        mifare_classic_interface_debug_print("mifare_classic: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
+        mifare_classic_interface_debug_print("mifare_classic: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
+        mifare_classic_interface_debug_print("mifare_classic: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
+        mifare_classic_interface_debug_print("mifare_classic: max current is %0.2fmA.\n", info.max_current_ma);
+        mifare_classic_interface_debug_print("mifare_classic: max temperature is %0.1fC.\n", info.temperature_max);
+        mifare_classic_interface_debug_print("mifare_classic: min temperature is %0.1fC.\n", info.temperature_min);
+        
+        return 0;
+    }
+    else if (strcmp("p", type) == 0)
+    {
+        /* print pin connection */
+        mifare_classic_interface_debug_print("mifare_classic: SPI interface SCK connected to GPIO11(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: SPI interface MISO connected to GPIO9(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: SPI interface MOSI connected to GPIO10(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: SPI interface CS connected to GPIO8(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: IIC interface SCL connected to GPIO3(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: IIC interface SDA connected to GPIO2(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: UART interface TX connected to GPIO14(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: UART interface RX connected to GPIO15(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: INT connected to GPIO17(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: RESET connected to GPIO26(BCM).\n");
+        
+        return 0;
+    }
     else
     {
         return 5;

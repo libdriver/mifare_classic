@@ -1069,7 +1069,7 @@ uint8_t mifare_classic_value_init(mifare_classic_handle_t *handle, uint8_t block
  * @brief     mifare value write
  * @param[in] *handle points to a mifare_classic handle structure
  * @param[in] block is the set block
- * @param[in] value is the writtren value
+ * @param[in] value is the write value
  * @param[in] addr is the set addr
  * @return    status code
  *            - 0 success
@@ -1174,7 +1174,7 @@ uint8_t mifare_classic_value_write(mifare_classic_handle_t *handle, uint8_t bloc
  * @param[in]  *handle points to a mifare_classic handle structure
  * @param[in]  block is the block of read
  * @param[out] *value points to a value buffer
- * @param[out] *addr points to a address buffer
+ * @param[out] *addr points to an address buffer
  * @return     status code
  *             - 0 success
  *             - 1 value read failed
@@ -1990,10 +1990,10 @@ uint8_t mifare_classic_get_sector_permission(mifare_classic_handle_t *handle,
 /**
  * @brief         transceiver data
  * @param[in]     *handle points to a mifare_classic handle structure
- * @param[in]     *in_buf points to a input buffer
+ * @param[in]     *in_buf points to an input buffer
  * @param[in]     in_len is the input length
- * @param[out]    *out_buf points to a output buffer
- * @param[in,out] *out_len points to a output length buffer
+ * @param[out]    *out_buf points to an output buffer
+ * @param[in,out] *out_len points to an output length buffer
  * @return        status code
  *                - 0 success
  *                - 1 transceiver failed

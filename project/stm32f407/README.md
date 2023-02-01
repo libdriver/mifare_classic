@@ -2,67 +2,127 @@
 
 #### 1.1 Chip Info
 
-chip name : STM32F407ZGT6.
+Chip Name: STM32F407ZGT6.
 
-extern oscillator : 8MHz.
+Extern Oscillator: 8MHz.
 
-uart pin: TX/RX PA9/PA10.
+UART Pin: TX/RX PA9/PA10.
 
-iic pin: SCL/SDA PB8/PB9.
+IIC Pin: SCL/SDA PB8/PB9.
 
-spi pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
+SPI Pin: SCK/MISO/MOSI/CS  PA5/PA6/PA7/PA4.
 
-gpio pin: INT PB0.
+GPIO Pin: INT PB0.
 
-reset pin: RESET PA8.
+RESET Pin: RESET PA8.
 
-### 2. Shell
+### 2. Development and Debugging
 
-#### 2.1 Shell Parameter
+#### 2.1 Integrated Development Environment
 
-baud rate: 115200.
+LidDriver provides both Keil and IAR integrated development environment projects.
 
-data bits : 8.
+MDK is the Keil ARM project and your Keil version must be 5 or higher.Keil ARM project needs STMicroelectronics STM32F4 Series Device Family Pack and you can download from https://www.keil.com/dd2/stmicroelectronics/stm32f407zgtx.
 
-stop bits: 1.
+EW is the IAR ARM project and your IAR version must be 9 or higher.
 
-parity: none.
+#### 2.2 Serial Port Parameter
 
-flow control: none.
+Baud Rate: 115200.
+
+Data Bits : 8.
+
+Stop Bits: 1.
+
+Parity: None.
+
+Flow Control: None.
+
+#### 2.3 Serial Port Assistant
+
+We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g. the displayed content does not divide lines), please modify the configuration of your serial port assistant or replace one that supports '\n' parsing.
 
 ### 3. MIFARE_CLASSIC
 
 #### 3.1 Command Instruction
 
-​           mifare_classic is a basic command which can test all mifare_classic driver function:
+1. Show mifare_classic chip and driver information.
 
-​           -i          show mifare_classic chip and driver information.
+   ```shell
+   mifare_classic (-i | --information)
+   ```
 
-​           -h        show mifare_classic help.
+2. Show mifare_classic help.
 
-​           -p        show mifare_classic pin connections of the current board.
+   ```shell
+   mifare_classic (-h | --help)
+   ```
 
-​           -t card        run mifare_classic card test. 
+3. Show mifare_classic pin connections of the current board.
 
-​           -c (halt | wake_up | -k (a | b) <keys> (read <block> | write <block> <data>| value (-init <block> <n> | -write <block> <n> | -read <block> | -increment <block> <n> | -decrement <block> <n>)))
+   ```shell
+   mifare_classic (-p | --port)
+   ```
 
-​           -c halt                                                          chip halt.
+4. Run mifare_classic card test.
 
-​           -c wake_up                                                 wake up the chip.
+   ```shell
+   mifare_classic (-t card | --test=card)
+   ```
 
-​           -c -k (a | b) <keys> read <block>        read the block.block is the read block.keys is the authentication keys.
+5. Run chip halt function.
 
-​           -c -k (a | b) <keys> write <block> <n>       write the block.block is the written block.keys is the authentication keys.n is the written data.
+   ```shell
+   mifare_classic (-e halt | --example=halt)
+   ```
 
-​           -c -k (a | b) <keys> value -init <block> <n>       init as a value block.block is the set block.keys is the authentication keys.n is the inted value.
+6. Run wake up the chip function.
 
-​           -c -k (a | b) <keys> value -write <block> <n>       write a value to the block.block is the set block.keys is the authentication keys.n is the written value.
+   ```shell
+   mifare_classic (-e wake-up | --example=wake-up)
+   ```
 
-​           -c -k (a | b) <keys> value -read <block>       read a value from the block.block is the set block.keys is the authentication keys.
+7. Run read block function, addr is the read block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12).
 
-​           -c -k (a | b) <keys> value -increment  <block> <n>       increment the value.block is the set block.keys is the authentication keys.n is the increment value.
+   ```shell
+   mifare_classic (-e read | --example=read) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>]
+   ```
 
-​           -c -k (a | b) <keys> value -decrement  <block> <n>      decrement the value.block is the set block.keys is the authentication keys.n is the decrement value.
+8. Run write block function, addr is the write block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12), data is the write data and it is hexadecimal with 16 bytes(strlen=32).
+
+   ```shell
+   mifare_classic (-e write | --example=write) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>] [--data=<hex>]
+   ```
+
+9. Run init as a value block function, addr is the set block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12), dec is the inted value.
+
+   ```shell
+   mifare_classic (-e value-init | --example=value-init) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>] [--value=<dec>]
+   ```
+
+10. Run write value to the block function, addr is the set block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12), dec is the write value.
+
+    ```shell
+    mifare_classic (-e value-write | --example=value-write) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>] [--value=<dec>]
+    ```
+
+11. Run read value from the block function, addr is the set block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12).
+
+    ```shell
+    mifare_classic (-e value-read | --example=value-read) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>]
+    ```
+
+12. Run increment value function, addr is the set block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12), dec is the increment value.
+
+    ```shell
+    mifare_classic (-e value-increment | --example=value-increment) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>] [--value=<dec>]
+    ```
+
+13. Run decrement value function, addr is the set block address and it is hexadecimal, authentication is the authentication keys and it is hexadecimal with 6 bytes(strlen=12), dec is the decrement value.
+
+    ```shell
+    mifare_classic (-e value-decrement | --example=value-decrement) [--key-type=<A | B>] [--key=<authentication>] [--block=<addr>] [--value=<dec>]
+    ```
 
 #### 3.2 Command Example
 
@@ -108,13 +168,13 @@ mifare_classic: max current is 30.00mA.
 mifare_classic: max temperature is 70.0C.
 mifare_classic: min temperature is -25.0C.
 mifare_classic: start card test.
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85.
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36.
 mifare_classic: authentication block 0 ok.
-mifare_classic: block 0 is 0x9C 0xA1 0x90 0x85 0x28 0x08 0x04 0x00 0x62 0x63 0x64 0x65 0x66 0x67 0x68 0x69 
+mifare_classic: block 0 is 0xC9 0x73 0xBA 0x36 0x36 0x18 0x02 0x00 0x46 0x44 0x53 0x37 0x30 0x56 0x30 0x31 
 mifare_classic: authentication block 1 ok.
-mifare_classic: write block 1: 0x72 0x64 0x39 0x3D 0xEE 0xD2 0xB5 0x5A 0x39 0x68 0xE8 0xC9 0xAA 0x5C 0x9F 0x30 
-mifare_classic: read block 1: 0x72 0x64 0x39 0x3D 0xEE 0xD2 0xB5 0x5A 0x39 0x68 0xE8 0xC9 0xAA 0x5C 0x9F 0x30 
+mifare_classic: write block 1: 0xF4 0x89 0x0B 0x0A 0x60 0x44 0x8B 0xEF 0x8D 0x01 0xA7 0x9E 0xDA 0xB6 0x39 0x71 
+mifare_classic: read block 1: 0xF4 0x89 0x0B 0x0A 0x60 0x44 0x8B 0xEF 0x8D 0x01 0xA7 0x9E 0xDA 0xB6 0x39 0x71 
 mifare_classic: check data ok.
 mifare_classic: authentication block 2 ok.
 mifare_classic: init value is 0.
@@ -172,100 +232,110 @@ mifare_classic: finish card test.
 ```
 
 ```shell
-mifare_classic -c halt
+mifare_classic -e halt
 
 mifare_classic: halt.
 ```
 
 ```shell
-mifare_classic -c wake_up
+mifare_classic -e wake-up
 
 mifare_classic: wake up.
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF read 0 
+mifare_classic -e read --key-type=A --key=FFFFFFFFFFFF --block=0
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
-mifare_classic: block is 0x9C 0xA1 0x90 0x85 0x28 0x08 0x04 0x00 0x62 0x63 0x64 0x65 0x66 0x67 0x68 0x69 
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
+mifare_classic: block is 0xC9 0x73 0xBA 0x36 0x36 0x18 0x02 0x00 0x46 0x44 0x53 0x37 0x30 0x56 0x30 0x31 
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF write 1 0123456789ABCDEF0123456789ABCDEF
+mifare_classic -e write --key-type=A --key=FFFFFFFFFFFF --block=1 --data=0123456789ABCDEF0123456789ABCDEF
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
 mifare_classic: data is 0x01 0x23 0x45 0x67 0x89 0xAB 0xCD 0xEF 0x01 0x23 0x45 0x67 0x89 0xAB 0xCD 0xEF 
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF value -init 2 10 
+mifare_classic -e value-init --key-type=A --key=FFFFFFFFFFFF --block=2 --value=10
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
 mifare_classic: init block2 as value 10.
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF value -write 2 100
+mifare_classic -e value-write --key-type=A --key=FFFFFFFFFFFF --block=2 --value=200
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
-mifare_classic: write block2 100.
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
+mifare_classic: write block2 200.
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF value -read 2
+mifare_classic -e value-read --key-type=A --key=FFFFFFFFFFFF --block=2
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
-mifare_classic: read block2 value 90.
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
+mifare_classic: read block2 value 200.
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF value -increment 2 10
+mifare_classic -e value-increment --key-type=A --key=FFFFFFFFFFFF --block=2 --value=20
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
-mifare_classic: increment block2 10.
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
+mifare_classic: increment block2 20.
 ```
 
 ```shell
-mifare_classic -c -k a FFFFFFFFFFFF value -decrement 2 20
+mifare_classic -e value-decrement --key-type=A --key=FFFFFFFFFFFF --block=2 --value=10
 
-mifare_classic: find S50 card.
-mifare_classic: id is 0x9C 0xA1 0x90 0x85 
-mifare_classic: decrement block2 20.
+mifare_classic: find S70 card.
+mifare_classic: id is 0xC9 0x73 0xBA 0x36 
+mifare_classic: decrement block2 10.
 ```
 
 ```shell
 mifare_classic -h
 
-mifare_classic -i
-	show mifare_classic chip and driver information.
-mifare_classic -h
-	show mifare_classic help.
-mifare_classic -p
-	show mifare_classic pin connections of the current board.
-mifare_classic -t card
-	run mifare_classic card test.
-mifare_classic -c halt
-	chip halt.
-mifare_classic -c wake_up
-	wake up the chip.
-mifare_classic -c -k (a | b) <keys> read <block>
-	read the block.block is the read block.keys is the authentication keys.
-mifare_classic -c -k (a | b) <keys> write <block> <n>
-	write the block.block is the written block.keys is the authentication keys.n is the written data.
-mifare_classic -c -k (a | b) <keys> value -init <block> <n>
-	init as a value block.block is the set block.keys is the authentication keys.n is the inted value.
-mifare_classic -c -k (a | b) <keys> value -write <block> <n>
-	write a value to the block.block is the set block.keys is the authentication keys.n is the written value.
-mifare_classic -c -k (a | b) <keys> value -read <block>
-	read a value from the block.block is the set block.keys is the authentication keys.
-mifare_classic -c -k (a | b) <keys> value -increment <block> <n>
-	increment the value.block is the set block.keys is the authentication keys.n is the increment value.
-mifare_classic -c -k (a | b) <keys> value -decrement <block> <n>
-	decrement the value.block is the set block.keys is the authentication keys.n is the decrement value.
+Usage:
+  mifare_classic (-i | --information)
+  mifare_classic (-h | --help)
+  mifare_classic (-p | --port)
+  mifare_classic (-t card | --test=card)
+  mifare_classic (-e halt | --example=halt)
+  mifare_classic (-e wake-up | --example=wake-up)
+  mifare_classic (-e read | --example=read) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>]
+  mifare_classic (-e write | --example=write) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>] [--data=<hex>]
+  mifare_classic (-e value-init | --example=value-init) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>] [--value=<dec>]
+  mifare_classic (-e value-write | --example=value-write) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>] [--value=<dec>]
+  mifare_classic (-e value-read | --example=value-read) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>]
+  mifare_classic (-e value-increment | --example=value-increment) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>] [--value=<dec>]
+  mifare_classic (-e value-decrement | --example=value-decrement) [--key-type=<A | B>] [--key=<authentication>]
+                 [--block=<addr>] [--value=<dec>]
+
+Options:
+      --block=<addr>            Set the block address and it is hexadecimal.([default: 0x00])
+      --data=<hex>              Set the input data and it is hexadecimal with 16 bytes(strlen=32).([default: 0x0123456789ABCDEF0123456789ABCDEF])
+  -e <halt | wake-up | read | write | value-init | value-write | value-read | value-increment
+     | value-decrement>, --example=<halt | wake-up | read | write | value-init | value-write
+     | value-read | value-increment | value-decrement>
+                                Run the driver example.
+  -h, --help                    Show the help.
+  -i, --information             Show the chip information.
+      --key=<authentication>    Set the key of authentication and it is hexadecimal with 6 bytes(strlen=12).([default: 0xFFFFFFFFFFFF])
+      --key-type=<A | B>        Set the key type of authentication.([default: A])
+  -p, --port                    Display the pin connections of the current board.
+  -t <card>, --test=<card>      Run the driver test.
+      --value=<dec>             Set the input value.([default: 0])
 ```

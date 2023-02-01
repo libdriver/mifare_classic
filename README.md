@@ -1,7 +1,7 @@
 [English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
-<img src="/doc/image/logo.png"/>
+<img src="/doc/image/logo.svg" width="400" height="150"/>
 </div>
 
 ## LibDriver MIFARE_Classic
@@ -11,6 +11,12 @@
 NXP Semiconductors has developed the MIFARE Classic EV1 contactless IC MF1S50yyX/V1 to be used in a contactless smart card according to ISO/IEC 14443 Type A.The MIFARE Classic EV1 with 1K memory MF1S50yyX/V1 IC is used in applications like public transport ticketing and can also be used for various other applications.MIFARE_Classic can be used in Public transportation, Electronic toll collection, School and campus cards and so on.
 
 LibDriver MIFARE_Classic is the full function driver of MIFARE_Classic launched by LibDriver.It provides the function of read block, write block, value increment, value decrement and so on. LibDriver is MISRA compliant.
+
+This repository includes submodule and you shold add "--recursive" to clone the whole project.
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
 
 ### Table of Contents
 
@@ -38,6 +44,8 @@ LibDriver MIFARE_Classic is the full function driver of MIFARE_Classic launched 
 /datasheet includes MIFARE_Classic datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
+
+/misra includes the LibDriver MISRA code scanning results.
 
 ### Install
 
@@ -196,13 +204,13 @@ return 0;
 
 ### Document
 
-Online documents: https://www.libdriver.com/docs/mifare_classic/index.html
+Online documents: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html).
 
-Offline documents: /doc/html/index.html
+Offline documents: /doc/html/index.html.
 
 ### Contributing
 
-Please sent an e-mail to lishifenging@outlook.com
+Please refer to CONTRIBUTING.md.
 
 ### License
 
@@ -250,4 +258,4 @@ SOFTWARE.
 
 ### Contact Us
 
-Please sent an e-mail to lishifenging@outlook.com
+Please sent an e-mail to lishifenging@outlook.com.

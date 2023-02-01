@@ -118,6 +118,7 @@ uint8_t mifare_classic_interface_contactless_init(void)
         return 1;
     }
     g_gpio_irq = mfrc522_interrupt_irq_handler;
+
 #ifdef USE_DRIVER_MFRC522
     if (mfrc522_basic_init(MFRC522_INTERFACE_SPI, 0x00, a_receive_callback) != 0)
     {
@@ -144,6 +145,7 @@ uint8_t mifare_classic_interface_contactless_deinit(void)
         return 1;
     }
     g_gpio_irq = NULL;
+
 #ifdef USE_DRIVER_MFRC522
     if (mfrc522_basic_deinit() != 0)
     {
@@ -170,7 +172,14 @@ uint8_t mifare_classic_interface_contactless_deinit(void)
 uint8_t mifare_classic_interface_contactless_transceiver(uint8_t *in_buf, uint8_t in_len, uint8_t *out_buf, uint8_t *out_len)
 {
 #ifdef USE_DRIVER_MFRC522
-    return mfrc522_basic_transceiver(in_buf, in_len, out_buf, out_len);
+    if (mfrc522_basic_transceiver(in_buf, in_len, out_buf, out_len) != 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 #else
     #error "mifare_classic no driver"
 #endif
@@ -194,12 +203,12 @@ void mifare_classic_interface_delay_ms(uint32_t ms)
 void mifare_classic_interface_debug_print(const char *const fmt, ...)
 {
     char str[256];
-    uint8_t len;
+    uint16_t len;
     va_list args;
     
     memset((char *)str, 0, sizeof(char)*256); 
     va_start(args, fmt);
-    vsnprintf((char *)str, 256, (char const *)fmt, args);
+    vsnprintf((char *)str, 255, (char const *)fmt, args);
     va_end(args);
     
     len = strlen((char *)str);

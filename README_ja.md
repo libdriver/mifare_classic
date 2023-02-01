@@ -1,7 +1,7 @@
 [English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
-<img src="/doc/image/logo.png"/>
+<img src="/doc/image/logo.svg" width="400" height="150"/>
 </div>
 
 ## LibDriver MIFARE_Classic
@@ -11,6 +11,12 @@
 NXPセミコンダクターズは、ISO /IEC14443タイプAに準拠した非接触型スマートカードで使用されるMIFAREクラシックEV1非接触ICMF1S50yyX/V1を開発しました.1Kメモリを備えたMIFAREクラシックEV1MF1S50yyX/ V1 ICは、公共交通機関の発券や 他のさまざまなアプリケーションにも使用できます。MIFARE_Classicは、公共交通機関、電子料金徴収、学校およびキャンパスカードなどで使用できます。
 
 LibDriver MIFARE_Classicは、LibDriverによって起動されるMIFARE_Classicの全機能ドライバーであり、読み取りブロック、書き込みブロック、値のインクリメント、値のデクリメントなどの機能を提供します。 LibDriverはMISRAに準拠しています。
+
+このリポジトリにはサブモジュールが含まれており、「--recursive」を追加してプロジェクト全体を複製する必要があります。
+
+```shell
+git clone https://github.com/hepingood/mifare_classic.git --recursive
+```
 
 ### 目次
 
@@ -38,6 +44,8 @@ LibDriver MIFARE_Classicは、LibDriverによって起動されるMIFARE_Classic
 / datasheetディレクトリには、MIFARE_Classicデータシートが含まれています。
 
 / projectディレクトリには、一般的に使用されるLinuxおよびマイクロコントローラー開発ボードのプロジェクトサンプルが含まれています。 すべてのプロジェクトは、デバッグ方法としてシェルスクリプトを使用しています。詳細については、各プロジェクトのREADME.mdを参照してください。
+
+/ misraはLibDriver misraコードスキャン結果を含む。
 
 ### インストール
 
@@ -196,13 +204,13 @@ return 0;
 
 ### ドキュメント
 
-オンラインドキュメント: https://www.libdriver.com/docs/mifare_classic/index.html
+オンラインドキュメント: [https://www.libdriver.com/docs/mifare_classic/index.html](https://www.libdriver.com/docs/mifare_classic/index.html)。
 
-オフラインドキュメント: /doc/html/index.html
+オフラインドキュメント: /doc/html/index.html。
 
 ### 貢献
 
-お問い合わせくださいlishifenging@outlook.com
+CONTRIBUTING.mdを参照してください。
 
 ### 著作権
 
@@ -218,4 +226,4 @@ MITライセンス（MIT）
 
 ### 連絡して
 
-お問い合わせくださいlishifenging@outlook.com
+お問い合わせくださいlishifenging@outlook.com。
