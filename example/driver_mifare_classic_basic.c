@@ -171,7 +171,7 @@ uint8_t mifare_classic_basic_search(mifare_classic_type_t *type, uint8_t id[4], 
         res = mifare_classic_request(&gs_handle, type);
         if (res == 0)
         {
-            /* anticollision_cl1 */
+            /* anti collision_cl1 */
             res = mifare_classic_anticollision_cl1(&gs_handle, id);
             if (res == 0)
             {
