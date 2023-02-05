@@ -307,12 +307,12 @@ uint8_t mifare_classic_set_modulation(mifare_classic_handle_t *handle, mifare_cl
 uint8_t mifare_classic_set_personalized_uid(mifare_classic_handle_t *handle, mifare_classic_personalized_uid_t type);
 
 /**
- * @brief      mifare anticollision cl1
+ * @brief      mifare anti collision cl1
  * @param[in]  *handle points to a mifare_classic handle structure
  * @param[out] *id points to an id buffer
  * @return     status code
  *             - 0 success
- *             - 1 anticollision cl1 failed
+ *             - 1 anti collision cl1 failed
  *             - 2 handle is NULL
  *             - 3 handle is not initialized
  *             - 4 output_len is invalid
@@ -322,12 +322,12 @@ uint8_t mifare_classic_set_personalized_uid(mifare_classic_handle_t *handle, mif
 uint8_t mifare_classic_anticollision_cl1(mifare_classic_handle_t *handle, uint8_t id[4]);
 
 /**
- * @brief      mifare anticollision cl2
+ * @brief      mifare anti collision cl2
  * @param[in]  *handle points to a mifare_classic handle structure
  * @param[out] *id points to an id buffer
  * @return     status code
  *             - 0 success
- *             - 1 anticollision cl2 failed
+ *             - 1 anti collision cl2 failed
  *             - 2 handle is NULL
  *             - 3 handle is not initialized
  *             - 4 output_len is invalid

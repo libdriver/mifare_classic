@@ -69,7 +69,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
         {"value", required_argument, NULL, 5},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     int32_t value = 0x00000000;
     uint8_t block = 0x00;
     uint8_t data[16] = {0};
@@ -515,7 +515,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -583,7 +583,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -651,7 +651,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -712,7 +712,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -775,7 +775,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -836,7 +836,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -897,7 +897,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
             return 1;
         }
         
-        /* ouput */
+        /* output */
         if (chip_type == MIFARE_CLASSIC_TYPE_S50)
         {
             mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -1046,7 +1046,7 @@ int main(uint8_t argc, char **argv)
     }
     else
     {
-        mifare_classic_interface_debug_print("mifare_classic: unknow status code.\n");
+        mifare_classic_interface_debug_print("mifare_classic: unknown status code.\n");
     }
 
     return 0;

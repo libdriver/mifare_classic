@@ -117,7 +117,7 @@ uint8_t mifare_classic_card_test(void)
         return 1;
     }
     
-    /* ouput the type */
+    /* output the type */
     if (type == MIFARE_CLASSIC_TYPE_S50)
     {
         mifare_classic_interface_debug_print("mifare_classic: find S50 card.\n");
@@ -138,7 +138,7 @@ uint8_t mifare_classic_card_test(void)
     res = mifare_classic_anticollision_cl1(&gs_handle, id);
     if (res != 0)
     {
-        mifare_classic_interface_debug_print("mifare_classic: anticollision cl1 failed.\n");
+        mifare_classic_interface_debug_print("mifare_classic: anti collision cl1 failed.\n");
         (void)mifare_classic_deinit(&gs_handle);
         
         return 1;
@@ -148,7 +148,7 @@ uint8_t mifare_classic_card_test(void)
     res = mifare_classic_select_cl1(&gs_handle, id);
     if (res != 0)
     {
-        mifare_classic_interface_debug_print("mifare_classic: anticollision cl1 failed.\n");
+        mifare_classic_interface_debug_print("mifare_classic: anti collision cl1 failed.\n");
         (void)mifare_classic_deinit(&gs_handle);
         
         return 1;

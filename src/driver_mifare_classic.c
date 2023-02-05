@@ -53,9 +53,9 @@
  */
 #define MIFARE_CLASSIC_COMMAND_REQUEST                          0x26           /**< request command */
 #define MIFARE_CLASSIC_COMMAND_WAKE_UP                          0x52           /**< wake up command */
-#define MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL1                0x9320U        /**< anticollision cl1 command */
+#define MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL1                0x9320U        /**< anti collision cl1 command */
 #define MIFARE_CLASSIC_COMMAND_SELECT_CL1                       0x9370U        /**< select cl1 command */
-#define MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL2                0x9520U        /**< anticollision cl2 command */
+#define MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL2                0x9520U        /**< anti collision cl2 command */
 #define MIFARE_CLASSIC_COMMAND_SELECT_CL2                       0x9570U        /**< select cl2 command */
 #define MIFARE_CLASSIC_COMMAND_HALT                             0x5000U        /**< halt command */
 #define MIFARE_CLASSIC_COMMAND_AUTHENTICATION_WITH_KEY_A        0x60           /**< authentication with key a command */
@@ -220,7 +220,7 @@ uint8_t mifare_classic_request(mifare_classic_handle_t *handle, mifare_classic_t
     
     input_len = 1;                                                                               /* set the input length */
     input_buf[0] = MIFARE_CLASSIC_COMMAND_REQUEST;                                               /* set the command */
-    output_len = 2;                                                                              /* set the ouput length */
+    output_len = 2;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -290,7 +290,7 @@ uint8_t mifare_classic_wake_up(mifare_classic_handle_t *handle, mifare_classic_t
     
     input_len = 1;                                                                               /* set the input length */
     input_buf[0] = MIFARE_CLASSIC_COMMAND_WAKE_UP;                                               /* set the command */
-    output_len = 2;                                                                              /* set the ouput length */
+    output_len = 2;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -358,7 +358,7 @@ uint8_t mifare_classic_halt(mifare_classic_handle_t *handle)
     input_buf[0] = (MIFARE_CLASSIC_COMMAND_HALT >> 8) & 0xFF;                                    /* set the command */
     input_buf[1] = (MIFARE_CLASSIC_COMMAND_HALT >> 0) & 0xFF;                                    /* set the command */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     (void)handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     
     return 0;                                                                                    /* success return 0 */
@@ -399,7 +399,7 @@ uint8_t mifare_classic_set_modulation(mifare_classic_handle_t *handle, mifare_cl
     input_buf[0] = MIFARE_CLASSIC_COMMAND_SET_MOD_TYPE;                                          /* set the command */
     input_buf[1] = mod;                                                                          /* set the mod */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -460,7 +460,7 @@ uint8_t mifare_classic_set_personalized_uid(mifare_classic_handle_t *handle, mif
     input_buf[0] = MIFARE_CLASSIC_COMMAND_PERSONALIZE_UID_USAGE;                                          /* set the command */
     input_buf[1] = type;                                                                          /* set the mod */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -488,12 +488,12 @@ uint8_t mifare_classic_set_personalized_uid(mifare_classic_handle_t *handle, mif
 }
 
 /**
- * @brief      mifare anticollision cl1
+ * @brief      mifare anti collision cl1
  * @param[in]  *handle points to a mifare_classic handle structure
  * @param[out] *id points to an id buffer
  * @return     status code
  *             - 0 success
- *             - 1 anticollision cl1 failed
+ *             - 1 anti collision cl1 failed
  *             - 2 handle is NULL
  *             - 3 handle is not initialized
  *             - 4 output_len is invalid
@@ -522,7 +522,7 @@ uint8_t mifare_classic_anticollision_cl1(mifare_classic_handle_t *handle, uint8_
     input_len = 2;                                                                               /* set the input length */
     input_buf[0] = (MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL1 >> 8) & 0xFF;                       /* set the command */
     input_buf[1] = (MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL1 >> 0) & 0xFF;                       /* set the command */
-    output_len = 5;                                                                              /* set the ouput length */
+    output_len = 5;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -553,12 +553,12 @@ uint8_t mifare_classic_anticollision_cl1(mifare_classic_handle_t *handle, uint8_
 }
 
 /**
- * @brief      mifare anticollision cl2
+ * @brief      mifare anti collision cl2
  * @param[in]  *handle points to a mifare_classic handle structure
  * @param[out] *id points to an id buffer
  * @return     status code
  *             - 0 success
- *             - 1 anticollision cl2 failed
+ *             - 1 anti collision cl2 failed
  *             - 2 handle is NULL
  *             - 3 handle is not initialized
  *             - 4 output_len is invalid
@@ -587,7 +587,7 @@ uint8_t mifare_classic_anticollision_cl2(mifare_classic_handle_t *handle, uint8_
     input_len = 2;                                                                               /* set the input length */
     input_buf[0] = (MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL2 >> 8) & 0xFF;                       /* set the command */
     input_buf[1] = (MIFARE_CLASSIC_COMMAND_ANTICOLLISION_CL2 >> 0) & 0xFF;                       /* set the command */
-    output_len = 5;                                                                              /* set the ouput length */
+    output_len = 5;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -658,7 +658,7 @@ uint8_t mifare_classic_select_cl1(mifare_classic_handle_t *handle, uint8_t id[4]
         input_buf[6] ^= id[i];                                                                   /* xor */
     }
     a_mifare_classic_iso14443a_crc(input_buf, 7, input_buf + 7);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -725,7 +725,7 @@ uint8_t mifare_classic_select_cl2(mifare_classic_handle_t *handle, uint8_t id[4]
         input_buf[6] ^= id[i];                                                                   /* xor */
     }
     a_mifare_classic_iso14443a_crc(input_buf, 7, input_buf + 7);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -803,7 +803,7 @@ uint8_t mifare_classic_authentication(mifare_classic_handle_t *handle, uint8_t i
         input_buf[8 + i] = id[i];                                                                /* copy the id */
     }
     
-    output_len = 0;                                                                              /* set the ouput length */
+    output_len = 0;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -851,7 +851,7 @@ uint8_t mifare_classic_read(mifare_classic_handle_t *handle, uint8_t block, uint
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_READ;                                           /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf , 2, input_buf + 2);                                /* get the crc */
-    output_len = 18;                                                                             /* set the ouput length */
+    output_len = 18;                                                                             /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -916,7 +916,7 @@ uint8_t mifare_classic_write(mifare_classic_handle_t *handle, uint8_t block, uin
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_WRITE;                                          /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -943,7 +943,7 @@ uint8_t mifare_classic_write(mifare_classic_handle_t *handle, uint8_t block, uin
     }
     a_mifare_classic_iso14443a_crc(input_buf, 16, input_buf + 16);                               /* get the crc */
     input_len = 18;                                                                              /* set the input length */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1020,7 +1020,7 @@ uint8_t mifare_classic_value_init(mifare_classic_handle_t *handle, uint8_t block
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_WRITE;                                          /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1047,7 +1047,7 @@ uint8_t mifare_classic_value_init(mifare_classic_handle_t *handle, uint8_t block
     }
     a_mifare_classic_iso14443a_crc(input_buf, 16, input_buf + 16);                               /* get the crc */
     input_len = 18;                                                                              /* set the input length */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1124,7 +1124,7 @@ uint8_t mifare_classic_value_write(mifare_classic_handle_t *handle, uint8_t bloc
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_WRITE;                                          /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1151,7 +1151,7 @@ uint8_t mifare_classic_value_write(mifare_classic_handle_t *handle, uint8_t bloc
     }
     a_mifare_classic_iso14443a_crc(input_buf, 16, input_buf + 16);                               /* get the crc */
     input_len = 18;                                                                              /* set the input length */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1217,7 +1217,7 @@ uint8_t mifare_classic_value_read(mifare_classic_handle_t *handle, uint8_t block
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_READ;                                           /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf , 2, input_buf + 2);                                /* get the crc */
-    output_len = 18;                                                                             /* set the ouput length */
+    output_len = 18;                                                                             /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1319,7 +1319,7 @@ uint8_t mifare_classic_increment(mifare_classic_handle_t *handle, uint8_t block,
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_INCREMENT;                                      /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1352,7 +1352,7 @@ uint8_t mifare_classic_increment(mifare_classic_handle_t *handle, uint8_t block,
     input_buf[2] = (v >> 16) & 0xFF;                                                             /* set the data */
     input_buf[3] = (v >> 24) & 0xFF;                                                             /* set the data */
     a_mifare_classic_iso14443a_crc(input_buf, 4, input_buf + 4);                                 /* get the crc */
-    output_len = 0;                                                                              /* set the ouput length */
+    output_len = 0;                                                                              /* set the output length */
     (void)handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     
     return 0;                                                                                    /* success return 0 */
@@ -1397,7 +1397,7 @@ uint8_t mifare_classic_decrement(mifare_classic_handle_t *handle, uint8_t block,
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_DECREMENT;                                      /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1430,7 +1430,7 @@ uint8_t mifare_classic_decrement(mifare_classic_handle_t *handle, uint8_t block,
     input_buf[2] = (v >> 16) & 0xFF;                                                             /* set the data */
     input_buf[3] = (v >> 24) & 0xFF;                                                             /* set the data */
     a_mifare_classic_iso14443a_crc(input_buf, 4, input_buf + 4);                                 /* get the crc */
-    output_len = 0;                                                                              /* set the ouput length */
+    output_len = 0;                                                                              /* set the output length */
     (void)handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     
     return 0;                                                                                    /* success return 0 */
@@ -1471,7 +1471,7 @@ uint8_t mifare_classic_transfer(mifare_classic_handle_t *handle, uint8_t block)
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_TRANSFER;                                          /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1536,7 +1536,7 @@ uint8_t mifare_classic_restore(mifare_classic_handle_t *handle, uint8_t block)
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_RESTORE;                                        /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1569,7 +1569,7 @@ uint8_t mifare_classic_restore(mifare_classic_handle_t *handle, uint8_t block)
     input_buf[2] = 0x00;                                                                         /* set the data */
     input_buf[3] = 0x00;                                                                         /* set the data */
     a_mifare_classic_iso14443a_crc(input_buf, 4, input_buf + 4);                                 /* get the crc */
-    output_len = 0;                                                                              /* set the ouput length */
+    output_len = 0;                                                                              /* set the output length */
     (void)handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     
     return 0;                                                                                    /* success return 0 */
@@ -1815,7 +1815,7 @@ uint8_t mifare_classic_set_sector_permission(mifare_classic_handle_t *handle,
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_WRITE;                                          /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf, 2, input_buf + 2);                                 /* get the crc */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1842,7 +1842,7 @@ uint8_t mifare_classic_set_sector_permission(mifare_classic_handle_t *handle,
     }
     a_mifare_classic_iso14443a_crc(input_buf, 16, input_buf + 16);                               /* get the crc */
     input_len = 18;                                                                              /* set the input length */
-    output_len = 1;                                                                              /* set the ouput length */
+    output_len = 1;                                                                              /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -1919,7 +1919,7 @@ uint8_t mifare_classic_get_sector_permission(mifare_classic_handle_t *handle,
     input_buf[0] = MIFARE_CLASSIC_COMMAND_MIFARE_READ;                                           /* set the command */
     input_buf[1] = block;                                                                        /* set the block */
     a_mifare_classic_iso14443a_crc(input_buf , 2, input_buf + 2);                                /* get the crc */
-    output_len = 18;                                                                             /* set the ouput length */
+    output_len = 18;                                                                             /* set the output length */
     res = handle->contactless_transceiver(input_buf, input_len, output_buf, &output_len);        /* transceiver */
     if (res != 0)                                                                                /* check the result */
     {
@@ -2045,7 +2045,7 @@ uint8_t mifare_classic_info(mifare_classic_info_t *info)
     info->max_current_ma = MAX_CURRENT;                             /* set maximum current */
     info->temperature_max = TEMPERATURE_MAX;                        /* set minimal temperature */
     info->temperature_min = TEMPERATURE_MIN;                        /* set maximum temperature */
-    info->driver_version = DRIVER_VERSION;                          /* set driver verison */
+    info->driver_version = DRIVER_VERSION;                          /* set driver version */
     
     return 0;                                                       /* success return 0 */
 }
