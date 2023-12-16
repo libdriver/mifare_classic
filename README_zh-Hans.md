@@ -15,7 +15,7 @@ LibDriver MIFARE_Classic是LibDriver推出的MIFARE_Classic全功能驱动，该
 本仓库包含子模块，您需要增加“--recursive”选项完整克隆整个工程。
 
 ```shell
-git clone https://github.com/hepingood/mifare_classic.git --recursive
+git clone https://github.com/libdriver/mifare_classic.git --recursive
 ```
 
 ### 目录

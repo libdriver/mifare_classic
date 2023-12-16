@@ -15,7 +15,7 @@ LibDriver MIFARE_Classicは、LibDriverによって起動されるMIFARE_Classic
 このリポジトリにはサブモジュールが含まれており、「--recursive」を追加してプロジェクト全体を複製する必要があります。
 
 ```shell
-git clone https://github.com/hepingood/mifare_classic.git --recursive
+git clone https://github.com/libdriver/mifare_classic.git --recursive
 ```
 
 ### 目次

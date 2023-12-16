@@ -15,7 +15,7 @@ LibDriver MIFARE_Classic ist der Vollfunktionstreiber von MIFARE_Classic, der vo
 Dieses Repository enthält ein Submodul und Sie sollten "--recursive" hinzufügen, um das gesamte Projekt zu klonen.
 
 ```shell
-git clone https://github.com/hepingood/mifare_classic.git --recursive
+git clone https://github.com/libdriver/mifare_classic.git --recursive
 ```
 
 ### Inhaltsverzeichnis
