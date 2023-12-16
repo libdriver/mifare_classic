@@ -15,7 +15,7 @@ LibDriver MIFARE_Classic은 LibDriver에서 출시한 MIFARE_Classic의 전체 �
 이 리포지토리에는 하위 모듈이 포함되어 있으며 전체 프로젝트를 복제하려면 "--recursive"를 추가해야 합니다.
 
 ```shell
-git clone https://github.com/hepingood/mifare_classic.git --recursive
+git clone https://github.com/libdriver/mifare_classic.git --recursive
 ```
 
 ### 콘텐츠
