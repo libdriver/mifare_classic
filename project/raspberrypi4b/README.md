@@ -189,7 +189,7 @@ mifare_classic: IIC interface SDA connected to GPIO2(BCM).
 mifare_classic: UART interface TX connected to GPIO14(BCM).
 mifare_classic: UART interface RX connected to GPIO15(BCM).
 mifare_classic: INT connected to GPIO17(BCM).
-mifare_classic: RESET connected to GPIO26(BCM).
+mifare_classic: RESET connected to GPIO27(BCM).
 ```
 
 ```shell
