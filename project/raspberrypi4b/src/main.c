@@ -1009,7 +1009,7 @@ uint8_t mifare_classic(uint8_t argc, char **argv)
         mifare_classic_interface_debug_print("mifare_classic: UART interface TX connected to GPIO14(BCM).\n");
         mifare_classic_interface_debug_print("mifare_classic: UART interface RX connected to GPIO15(BCM).\n");
         mifare_classic_interface_debug_print("mifare_classic: INT connected to GPIO17(BCM).\n");
-        mifare_classic_interface_debug_print("mifare_classic: RESET connected to GPIO26(BCM).\n");
+        mifare_classic_interface_debug_print("mifare_classic: RESET connected to GPIO27(BCM).\n");
         
         return 0;
     }
