@@ -55,6 +55,8 @@ git clone https://github.com/libdriver/mifare_classic.git --recursive
 
 ### 使用
 
+/example ディレクトリ内のサンプルを参照して、独自のドライバーを完成させることができます。 デフォルトのプログラミング例を使用したい場合の使用方法は次のとおりです。
+
 #### example basic
 
 ```C
