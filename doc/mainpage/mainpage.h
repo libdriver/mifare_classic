@@ -1,6 +1,6 @@
 /**
- * @mainpage  LibDriver MIFARE Classic
- * @brief     libdriver mifare_classic is a full function driver of MIFARE Classic and it can run in both MCU and Linux platform.
+ * @mainpage  LibDriver MIFARE CLASSIC
+ * @brief     LibDriver MIFARE_CLASSIC is a full function driver of MIFARE_CLASSIC and it can run in both MCU and Linux platform.
  * @version   1.0.0
  * @author    Shifeng Li
  *
