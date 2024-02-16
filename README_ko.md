@@ -51,7 +51,7 @@ git clone https://github.com/libdriver/mifare_classic.git --recursive
 
 /interface 디렉토리에서 플랫폼 독립적인 RF 버스 템플릿을 참조하여 지정된 플랫폼에 대한 RF 버스 드라이버를 완성하십시오.
 
-/src 디렉토리, /interface 디렉토리 및 /example 디렉토리를 프로젝트에 추가하십시오.
+/src 디렉터리, 플랫폼용 인터페이스 드라이버 및 자체 드라이버를 프로젝트에 추가합니다. 기본 예제 드라이버를 사용하려면 /example 디렉터리를 프로젝트에 추가합니다.
 
 ### 사용
 
