@@ -2,7 +2,7 @@
 
 ## Features
 
-- update reader driver.
+- update reader driver
 
 ## 1.0.2 (2024-08-06)
 
