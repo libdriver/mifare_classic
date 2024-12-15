@@ -268,15 +268,15 @@ Functions</h2></td></tr>
 <p>basic example get the sector permission </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the get sector </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_0_0_4</td><td>points to a block0(block0-4) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_1_5_9</td><td>points to a block1(block5-9) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_2_10_14</td><td>points to a block2(block10-14) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_3_15</td><td>points to a block3(block15) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*user_data</td><td>points to a user data buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*key_b</td><td>points to a key b buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>get sector </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_0_0_4</td><td>pointer to a block0(block0-4) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_1_5_9</td><td>pointer to a block1(block5-9) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_2_10_14</td><td>pointer to a block2(block10-14) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_3_15</td><td>pointer to a block3(block15) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*user_data</td><td>pointer to a user data buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*key_b</td><td>pointer to a key b buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -388,10 +388,10 @@ Functions</h2></td></tr>
 <p>basic example read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the read block </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*data</td><td>points to a data buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of read </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*data</td><td>pointer to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -441,9 +441,9 @@ Functions</h2></td></tr>
 <p>basic example search </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>points to a type buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*id</td><td>points to an id buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>is the check times </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>pointer to a type buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*id</td><td>pointer to an id buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>check times </td></tr>
   </table>
   </dd>
 </dl>
@@ -535,16 +535,16 @@ Functions</h2></td></tr>
 <p>basic example set the sector permission </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the set sector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key_a</td><td>points to a key a buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_0_0_4</td><td>is the block0(block0-4) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_1_5_9</td><td>is the block1(block5-9) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_2_10_14</td><td>is the block2(block10-14) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_3_15</td><td>is the block3(block15) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>is the user data </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key_b</td><td>points to a key b buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>set sector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key_a</td><td>pointer to a key a buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_0_0_4</td><td>block0(block0-4) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_1_5_9</td><td>block1(block5-9) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_2_10_14</td><td>block2(block10-14) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_3_15</td><td>block3(block15) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>user data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key_b</td><td>pointer to a key b buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -601,10 +601,10 @@ Functions</h2></td></tr>
 <p>basic example decrement value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the decrement block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the decrement value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of decrement </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>decrement value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -660,10 +660,10 @@ Functions</h2></td></tr>
 <p>basic example increment value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the increment block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the increment value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of increment </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>increment value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -725,11 +725,11 @@ Functions</h2></td></tr>
 <p>basic example init as a value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the set block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the inited value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>is the inited address </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of init </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>inited value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -791,11 +791,11 @@ Functions</h2></td></tr>
 <p>basic example read value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the read block </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*value</td><td>points to a read value buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*addr</td><td>points to a read address buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of read </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*value</td><td>pointer to a read value buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*addr</td><td>pointer to a read address buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -857,11 +857,11 @@ Functions</h2></td></tr>
 <p>basic example write value </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the written block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the written value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>is the written address </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of write </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>written value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -945,10 +945,10 @@ Functions</h2></td></tr>
 <p>basic example write </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the written block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*data</td><td>points to a data buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of write </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*data</td><td>pointer to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>

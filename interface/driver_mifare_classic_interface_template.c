@@ -62,10 +62,10 @@ uint8_t mifare_classic_interface_contactless_deinit(void)
 
 /**
  * @brief         interface contactless transceiver
- * @param[in]     *in_buf points to a input buffer
- * @param[in]     in_len is the input length
- * @param[out]    *out_buf points to a output buffer
- * @param[in,out] *out_len points to a output length buffer
+ * @param[in]     *in_buf pointer to a input buffer
+ * @param[in]     in_len input length
+ * @param[out]    *out_buf pointer to a output buffer
+ * @param[in,out] *out_len pointer to a output length buffer
  * @return        status code
  *                - 0 success
  *                - 1 contactless transceiver failed
@@ -78,7 +78,7 @@ uint8_t mifare_classic_interface_contactless_transceiver(uint8_t *in_buf, uint8_
 
 /**
  * @brief     interface delay ms
- * @param[in] ms
+ * @param[in] ms time
  * @note      none
  */
 void mifare_classic_interface_delay_ms(uint32_t ms)
@@ -88,7 +88,7 @@ void mifare_classic_interface_delay_ms(uint32_t ms)
 
 /**
  * @brief     interface print format data
- * @param[in] fmt is the format data
+ * @param[in] fmt format data
  * @note      none
  */
 void mifare_classic_interface_debug_print(const char *const fmt, ...)

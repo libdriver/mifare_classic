@@ -41,7 +41,7 @@ static uint8_t gs_id[4];                         /**< local id */
 
 /**
  * @brief     interface print format data
- * @param[in] fmt is the format data
+ * @param[in] fmt format data
  * @note      none
  */
 static void s_debug_print(const char *const fmt, ...)
@@ -152,9 +152,9 @@ uint8_t mifare_classic_basic_wake_up(void)
 
 /**
  * @brief      basic example search
- * @param[out] *type points to a type buffer
- * @param[out] *id points to an id buffer
- * @param[in]  timeout is the check times
+ * @param[out] *type pointer to a type buffer
+ * @param[out] *id pointer to an id buffer
+ * @param[in]  timeout check times
  * @return     status code
  *             - 0 success
  *             - 1 timeout
@@ -213,10 +213,10 @@ uint8_t mifare_classic_basic_search(mifare_classic_type_t *type, uint8_t id[4], 
 
 /**
  * @brief      basic example read
- * @param[in]  block is the read block
- * @param[out] *data points to a data buffer
- * @param[in]  key_type is the authentication key type
- * @param[in]  *key points to a key buffer
+ * @param[in]  block block of read
+ * @param[out] *data pointer to a data buffer
+ * @param[in]  key_type authentication key type
+ * @param[in]  *key pointer to a key buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -264,10 +264,10 @@ uint8_t mifare_classic_basic_read(uint8_t block, uint8_t data[16],
 
 /**
  * @brief     basic example write
- * @param[in] block is the written block
- * @param[in] *data points to a data buffer
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
+ * @param[in] block block of write
+ * @param[in] *data pointer to a data buffer
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -315,11 +315,11 @@ uint8_t mifare_classic_basic_write(uint8_t block, uint8_t data[16],
 
 /**
  * @brief     basic example init as a value
- * @param[in] block is the set block
- * @param[in] value is the inited value
- * @param[in] addr is the inited address
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
+ * @param[in] block block of init
+ * @param[in] value inited value
+ * @param[in] addr address
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
  * @return    status code
  *            - 0 success
  *            - 1 value init failed
@@ -367,11 +367,11 @@ uint8_t mifare_classic_basic_value_init(uint8_t block, int32_t value, uint8_t ad
 
 /**
  * @brief     basic example write value
- * @param[in] block is the written block
- * @param[in] value is the written value
- * @param[in] addr is the written address
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
+ * @param[in] block block of write
+ * @param[in] value written value
+ * @param[in] addr address
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
  * @return    status code
  *            - 0 success
  *            - 1 value written failed
@@ -419,11 +419,11 @@ uint8_t mifare_classic_basic_value_write(uint8_t block, int32_t value, uint8_t a
 
 /**
  * @brief      basic example read value
- * @param[in]  block is the read block
- * @param[out] *value points to a read value buffer
- * @param[out] *addr points to a read address buffer
- * @param[in]  key_type is the authentication key type
- * @param[in]  *key points to a key buffer
+ * @param[in]  block block of read
+ * @param[out] *value pointer to a read value buffer
+ * @param[out] *addr pointer to a read address buffer
+ * @param[in]  key_type authentication key type
+ * @param[in]  *key pointer to a key buffer
  * @return     status code
  *             - 0 success
  *             - 1 value read failed
@@ -471,10 +471,10 @@ uint8_t mifare_classic_basic_value_read(uint8_t block, int32_t *value, uint8_t *
 
 /**
  * @brief     basic example increment value
- * @param[in] block is the increment block
- * @param[in] value is the increment value
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
+ * @param[in] block block of increment
+ * @param[in] value increment value
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
  * @return    status code
  *            - 0 success
  *            - 1 value increment failed
@@ -527,10 +527,10 @@ uint8_t mifare_classic_basic_value_increment(uint8_t block, uint32_t value,
 
 /**
  * @brief     basic example decrement value
- * @param[in] block is the decrement block
- * @param[in] value is the decrement value
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
+ * @param[in] block block of decrement
+ * @param[in] value decrement value
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
  * @return    status code
  *            - 0 success
  *            - 1 value decrement failed
@@ -583,16 +583,16 @@ uint8_t mifare_classic_basic_value_decrement(uint8_t block, uint32_t value,
 
 /**
  * @brief     basic example set the sector permission
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
- * @param[in] sector is the set sector
- * @param[in] *key_a points to a key a buffer
- * @param[in] block_0_0_4 is the block0(block0-4) permission
- * @param[in] block_1_5_9 is the block1(block5-9) permission
- * @param[in] block_2_10_14 is the block2(block10-14) permission
- * @param[in] block_3_15 is the block3(block15) permission
- * @param[in] user_data is the user data
- * @param[in] *key_b points to a key b buffer
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
+ * @param[in] sector set sector
+ * @param[in] *key_a pointer to a key a buffer
+ * @param[in] block_0_0_4 block0(block0-4) permission
+ * @param[in] block_1_5_9 block1(block5-9) permission
+ * @param[in] block_2_10_14 block2(block10-14) permission
+ * @param[in] block_3_15 block3(block15) permission
+ * @param[in] user_data user data
+ * @param[in] *key_b pointer to a key b buffer
  * @return    status code
  *            - 0 success
  *            - 1 set sector permission failed
@@ -652,15 +652,15 @@ uint8_t mifare_classic_basic_set_permission(mifare_classic_authentication_key_t 
 
 /**
  * @brief      basic example get the sector permission
- * @param[in]  key_type is the authentication key type
- * @param[in]  *key points to a key buffer
- * @param[in]  sector is the get sector
- * @param[out] *block_0_0_4 points to a block0(block0-4) permission buffer
- * @param[out] *block_1_5_9 points to a block1(block5-9) permission buffer
- * @param[out] *block_2_10_14 points to a block2(block10-14) permission buffer
- * @param[out] *block_3_15 points to a block3(block15) permission buffer
- * @param[out] *user_data points to a user data buffer
- * @param[out] *key_b points to a key b buffer
+ * @param[in]  key_type authentication key type
+ * @param[in]  *key pointer to a key buffer
+ * @param[in]  sector get sector
+ * @param[out] *block_0_0_4 pointer to a block0(block0-4) permission buffer
+ * @param[out] *block_1_5_9 pointer to a block1(block5-9) permission buffer
+ * @param[out] *block_2_10_14 pointer to a block2(block10-14) permission buffer
+ * @param[out] *block_3_15 pointer to a block3(block15) permission buffer
+ * @param[out] *user_data pointer to a user data buffer
+ * @param[out] *key_b pointer to a key b buffer
  * @return     status code
  *             - 0 success
  *             - 1 get sector permission failed
