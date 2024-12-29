@@ -1,3 +1,9 @@
+## 1.0.5 (2024-12-28)
+
+## Features
+
+- update reader driver
+
 ## 1.0.4 (2024-12-15)
 
 ## Bug Fixes
