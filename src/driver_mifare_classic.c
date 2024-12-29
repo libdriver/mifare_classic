@@ -71,8 +71,8 @@
 
 /**
  * @brief     crc calculation
- * @param[in] *p points to a data buffer
- * @param[in] len is the data length
+ * @param[in] *p pointer to a data buffer
+ * @param[in] len data length
  * @note      none
  */
 static void a_mifare_classic_iso14443a_crc(uint8_t *p, uint8_t len, uint8_t output[2])
@@ -95,7 +95,7 @@ static void a_mifare_classic_iso14443a_crc(uint8_t *p, uint8_t len, uint8_t outp
 
 /**
  * @brief     initialize the chip
- * @param[in] *handle points to a mifare_classic handle structure
+ * @param[in] *handle pointer to a mifare_classic handle structure
  * @return    status code
  *            - 0 success
  *            - 1 contactless initialization failed
@@ -155,7 +155,7 @@ uint8_t mifare_classic_init(mifare_classic_handle_t *handle)
 
 /**
  * @brief     close the chip
- * @param[in] *handle points to a mifare_classic handle structure
+ * @param[in] *handle pointer to a mifare_classic handle structure
  * @return    status code
  *            - 0 success
  *            - 1 contactless deinit failed
@@ -190,8 +190,8 @@ uint8_t mifare_classic_deinit(mifare_classic_handle_t *handle)
 
 /**
  * @brief      mifare request
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[out] *type points to a type buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[out] *type pointer to a type buffer
  * @return     status code
  *             - 0 success
  *             - 1 request failed
@@ -260,8 +260,8 @@ uint8_t mifare_classic_request(mifare_classic_handle_t *handle, mifare_classic_t
 
 /**
  * @brief      mifare wake up
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[out] *type points to a type buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[out] *type pointer to a type buffer
  * @return     status code
  *             - 0 success
  *             - 1 wake up failed
@@ -330,7 +330,7 @@ uint8_t mifare_classic_wake_up(mifare_classic_handle_t *handle, mifare_classic_t
 
 /**
  * @brief      mifare halt
- * @param[in]  *handle points to a mifare_classic handle structure
+ * @param[in]  *handle pointer to a mifare_classic handle structure
  * @return     status code
  *             - 0 success
  *             - 1 halt failed
@@ -367,8 +367,8 @@ uint8_t mifare_classic_halt(mifare_classic_handle_t *handle)
 
 /**
  * @brief     mifare set the load modulation
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] mod is the load modulation
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] mod load modulation
  * @return    status code
  *            - 0 success
  *            - 1 set modulation failed
@@ -428,8 +428,8 @@ uint8_t mifare_classic_set_modulation(mifare_classic_handle_t *handle, mifare_cl
 
 /**
  * @brief     mifare set the personalized uid
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] type is the personalized uid type
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] type personalized uid type
  * @return    status code
  *            - 0 success
  *            - 1 set personalized uid failed
@@ -489,8 +489,8 @@ uint8_t mifare_classic_set_personalized_uid(mifare_classic_handle_t *handle, mif
 
 /**
  * @brief      mifare anti collision cl1
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[out] *id points to an id buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[out] *id pointer to an id buffer
  * @return     status code
  *             - 0 success
  *             - 1 anti collision cl1 failed
@@ -554,8 +554,8 @@ uint8_t mifare_classic_anticollision_cl1(mifare_classic_handle_t *handle, uint8_
 
 /**
  * @brief      mifare anti collision cl2
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[out] *id points to an id buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[out] *id pointer to an id buffer
  * @return     status code
  *             - 0 success
  *             - 1 anti collision cl2 failed
@@ -619,8 +619,8 @@ uint8_t mifare_classic_anticollision_cl2(mifare_classic_handle_t *handle, uint8_
 
 /**
  * @brief     mifare select cl1
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] *id points to an id buffer
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] *id pointer to an id buffer
  * @return    status code
  *            - 0 success
  *            - 1 select cl1 failed
@@ -686,8 +686,8 @@ uint8_t mifare_classic_select_cl1(mifare_classic_handle_t *handle, uint8_t id[4]
 
 /**
  * @brief     mifare select cl2
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] *id points to an id buffer
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] *id pointer to an id buffer
  * @return    status code
  *            - 0 success
  *            - 1 select cl2 failed
@@ -753,11 +753,11 @@ uint8_t mifare_classic_select_cl2(mifare_classic_handle_t *handle, uint8_t id[4]
 
 /**
  * @brief     mifare authentication
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] *id points to an id buffer
- * @param[in] block is the block of authentication
- * @param[in] key_type is the authentication key type
- * @param[in] *key points to a key buffer
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] *id pointer to an id buffer
+ * @param[in] block block of authentication
+ * @param[in] key_type authentication key type
+ * @param[in] *key pointer to a key buffer
  * @return    status code
  *            - 0 success
  *            - 1 authentication failed
@@ -817,9 +817,9 @@ uint8_t mifare_classic_authentication(mifare_classic_handle_t *handle, uint8_t i
 
 /**
  * @brief      mifare read
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  block is the block of read
- * @param[out] *data points to a data buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  block block of read
+ * @param[out] *data pointer to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -882,9 +882,9 @@ uint8_t mifare_classic_read(mifare_classic_handle_t *handle, uint8_t block, uint
 
 /**
  * @brief     mifare write
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the block of write
- * @param[in] *data points to a data buffer
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block block of write
+ * @param[in] *data pointer to a data buffer
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -963,10 +963,10 @@ uint8_t mifare_classic_write(mifare_classic_handle_t *handle, uint8_t block, uin
 
 /**
  * @brief     mifare init one block as a value block
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the set block
- * @param[in] value is the inited value
- * @param[in] addr is the set addr
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block set block
+ * @param[in] value inited value
+ * @param[in] addr address
  * @return    status code
  *            - 0 success
  *            - 1 value init failed
@@ -1067,10 +1067,10 @@ uint8_t mifare_classic_value_init(mifare_classic_handle_t *handle, uint8_t block
 
 /**
  * @brief     mifare value write
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the set block
- * @param[in] value is the write value
- * @param[in] addr is the set addr
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block set block
+ * @param[in] value written value
+ * @param[in] addr address
  * @return    status code
  *            - 0 success
  *            - 1 value write failed
@@ -1171,10 +1171,10 @@ uint8_t mifare_classic_value_write(mifare_classic_handle_t *handle, uint8_t bloc
 
 /**
  * @brief      mifare value read
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  block is the block of read
- * @param[out] *value points to a value buffer
- * @param[out] *addr points to an address buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  block block of read
+ * @param[out] *value pointer to a value buffer
+ * @param[out] *addr pointer to an address buffer
  * @return     status code
  *             - 0 success
  *             - 1 value read failed
@@ -1282,9 +1282,9 @@ uint8_t mifare_classic_value_read(mifare_classic_handle_t *handle, uint8_t block
 
 /**
  * @brief     mifare increment
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the block of increment
- * @param[in] value is the increment value
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block block of increment
+ * @param[in] value increment value
  * @return    status code
  *            - 0 success
  *            - 1 increment failed
@@ -1360,9 +1360,9 @@ uint8_t mifare_classic_increment(mifare_classic_handle_t *handle, uint8_t block,
 
 /**
  * @brief     mifare decrement
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the block of decrement
- * @param[in] value is the decrement value
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block block of decrement
+ * @param[in] value decrement value
  * @return    status code
  *            - 0 success
  *            - 1 decrement failed
@@ -1438,8 +1438,8 @@ uint8_t mifare_classic_decrement(mifare_classic_handle_t *handle, uint8_t block,
 
 /**
  * @brief     mifare transfer
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the block of transfer
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block block of transfer
  * @return    status code
  *            - 0 success
  *            - 1 transfer failed
@@ -1503,8 +1503,8 @@ uint8_t mifare_classic_transfer(mifare_classic_handle_t *handle, uint8_t block)
 
 /**
  * @brief     mifare restore
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] block is the block of restore
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] block block of restore
  * @return    status code
  *            - 0 success
  *            - 1 restore failed
@@ -1577,9 +1577,9 @@ uint8_t mifare_classic_restore(mifare_classic_handle_t *handle, uint8_t block)
 
 /**
  * @brief      mifare block number to sector number
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  block is the block number
- * @param[out] *sector points to a sector number buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  block block number
+ * @param[out] *sector pointer to a sector number buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1611,9 +1611,9 @@ uint8_t mifare_classic_block_to_sector(mifare_classic_handle_t *handle, uint8_t 
 
 /**
  * @brief      mifare get the sector's block counter
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  sector is the sector number
- * @param[out] *count points to a count buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  sector sector number
+ * @param[out] *count pointer to a count buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1645,9 +1645,9 @@ uint8_t mifare_classic_sector_block_count(mifare_classic_handle_t *handle, uint8
 
 /**
  * @brief      mifare get the sector's first block
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  sector is the sector number
- * @param[out] *block points to a block number buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  sector sector number
+ * @param[out] *block pointer to a block number buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1679,9 +1679,9 @@ uint8_t mifare_classic_sector_first_block(mifare_classic_handle_t *handle, uint8
 
 /**
  * @brief      mifare get the sector's last block
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  sector is the sector number
- * @param[out] *block points to a block number buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  sector sector number
+ * @param[out] *block pointer to a block number buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1714,15 +1714,15 @@ uint8_t mifare_classic_sector_last_block(mifare_classic_handle_t *handle, uint8_
 
 /**
  * @brief     mifare set the sector permission
- * @param[in] *handle points to a mifare_classic handle structure
- * @param[in] sector is the set sector
- * @param[in] *key_a points to a key a buffer
- * @param[in] block_0_0_4 is the block0(block0-4) permission
- * @param[in] block_1_5_9 is the block1(block5-9) permission
- * @param[in] block_2_10_14 is the block2(block10-14) permission
- * @param[in] block_3_15 is the block3(block15) permission
- * @param[in] user_data is the user data
- * @param[in] *key_b points to a key b buffer
+ * @param[in] *handle pointer to a mifare_classic handle structure
+ * @param[in] sector set sector
+ * @param[in] *key_a pointer to a key a buffer
+ * @param[in] block_0_0_4 block0(block0-4) permission
+ * @param[in] block_1_5_9 block1(block5-9) permission
+ * @param[in] block_2_10_14 block2(block10-14) permission
+ * @param[in] block_3_15 is block3(block15) permission
+ * @param[in] user_data user data
+ * @param[in] *key_b pointer to a key b buffer
  * @return    status code
  *            - 0 success
  *            - 1 set sector permission failed
@@ -1862,14 +1862,14 @@ uint8_t mifare_classic_set_sector_permission(mifare_classic_handle_t *handle,
 
 /**
  * @brief      mifare get the sector permission
- * @param[in]  *handle points to a mifare_classic handle structure
- * @param[in]  sector is the get sector
- * @param[out] *block_0_0_4 points to a block0(block0-4) permission buffer
- * @param[out] *block_1_5_9 points to a block1(block5-9) permission buffer
- * @param[out] *block_2_10_14 points to a block2(block10-14) permission buffer
- * @param[out] *block_3_15 points to a block3(block15) permission buffer
- * @param[out] *user_data points to a user data buffer
- * @param[out] *key_b points to a key b buffer
+ * @param[in]  *handle pointer to a mifare_classic handle structure
+ * @param[in]  sector get sector
+ * @param[out] *block_0_0_4 pointer to a block0(block0-4) permission buffer
+ * @param[out] *block_1_5_9 pointer to a block1(block5-9) permission buffer
+ * @param[out] *block_2_10_14 pointer to a block2(block10-14) permission buffer
+ * @param[out] *block_3_15 pointer to a block3(block15) permission buffer
+ * @param[out] *user_data pointer to a user data buffer
+ * @param[out] *key_b pointer to a key b buffer
  * @return     status code
  *             - 0 success
  *             - 1 get sector permission failed
@@ -1989,11 +1989,11 @@ uint8_t mifare_classic_get_sector_permission(mifare_classic_handle_t *handle,
 
 /**
  * @brief         transceiver data
- * @param[in]     *handle points to a mifare_classic handle structure
- * @param[in]     *in_buf points to an input buffer
- * @param[in]     in_len is the input length
- * @param[out]    *out_buf points to an output buffer
- * @param[in,out] *out_len points to an output length buffer
+ * @param[in]     *handle pointer to a mifare_classic handle structure
+ * @param[in]     *in_buf pointer to an input buffer
+ * @param[in]     in_len input length
+ * @param[out]    *out_buf pointer to an output buffer
+ * @param[in,out] *out_len pointer to an output length buffer
  * @return        status code
  *                - 0 success
  *                - 1 transceiver failed
@@ -2023,7 +2023,7 @@ uint8_t mifare_classic_transceiver(mifare_classic_handle_t *handle, uint8_t *in_
 
 /**
  * @brief      get chip information
- * @param[out] *info points to a mifare_classic info structure
+ * @param[out] *info pointer to a mifare_classic info structure
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL

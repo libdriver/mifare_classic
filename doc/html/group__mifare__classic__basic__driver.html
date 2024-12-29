@@ -396,8 +396,8 @@ Functions</h2></td></tr>
 <p>mifare anti collision cl1 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*id</td><td>points to an id buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*id</td><td>pointer to an id buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -445,8 +445,8 @@ Functions</h2></td></tr>
 <p>mifare anti collision cl2 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*id</td><td>points to an id buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*id</td><td>pointer to an id buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -512,11 +512,11 @@ Functions</h2></td></tr>
 <p>mifare authentication </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*id</td><td>points to an id buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of authentication </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>is the authentication key type </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>points to a key buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*id</td><td>pointer to an id buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of authentication </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key_type</td><td>authentication key type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key</td><td>pointer to a key buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -568,9 +568,9 @@ Functions</h2></td></tr>
 <p>mifare block number to sector number </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block number </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*sector</td><td>points to a sector number buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block number </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*sector</td><td>pointer to a sector number buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -621,9 +621,9 @@ Functions</h2></td></tr>
 <p>mifare decrement </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of decrement </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the decrement value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of decrement </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>decrement value </td></tr>
   </table>
   </dd>
 </dl>
@@ -662,7 +662,7 @@ Functions</h2></td></tr>
 <p>close the chip </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -744,14 +744,14 @@ Functions</h2></td></tr>
 <p>mifare get the sector permission </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the get sector </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_0_0_4</td><td>points to a block0(block0-4) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_1_5_9</td><td>points to a block1(block5-9) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_2_10_14</td><td>points to a block2(block10-14) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block_3_15</td><td>points to a block3(block15) permission buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*user_data</td><td>points to a user data buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*key_b</td><td>points to a key b buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>get sector </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_0_0_4</td><td>pointer to a block0(block0-4) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_1_5_9</td><td>pointer to a block1(block5-9) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_2_10_14</td><td>pointer to a block2(block10-14) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block_3_15</td><td>pointer to a block3(block15) permission buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*user_data</td><td>pointer to a user data buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*key_b</td><td>pointer to a key b buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -790,7 +790,7 @@ Functions</h2></td></tr>
 <p>mifare halt </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -842,9 +842,9 @@ Functions</h2></td></tr>
 <p>mifare increment </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of increment </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the increment value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of increment </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>increment value </td></tr>
   </table>
   </dd>
 </dl>
@@ -883,7 +883,7 @@ Functions</h2></td></tr>
 <p>get chip information </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">*info</td><td>points to a mifare_classic info structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*info</td><td>pointer to a mifare_classic info structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -917,7 +917,7 @@ Functions</h2></td></tr>
 <p>initialize the chip </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
   </table>
   </dd>
 </dl>
@@ -969,9 +969,9 @@ Functions</h2></td></tr>
 <p>mifare read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of read </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*data</td><td>points to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of read </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*data</td><td>pointer to a data buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1019,8 +1019,8 @@ Functions</h2></td></tr>
 <p>mifare request </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>points to a type buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>pointer to a type buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1068,8 +1068,8 @@ Functions</h2></td></tr>
 <p>mifare restore </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of restore </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of restore </td></tr>
   </table>
   </dd>
 </dl>
@@ -1124,9 +1124,9 @@ Functions</h2></td></tr>
 <p>mifare get the sector's block counter </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the sector number </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*count</td><td>points to a count buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>sector number </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*count</td><td>pointer to a count buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1177,9 +1177,9 @@ Functions</h2></td></tr>
 <p>mifare get the sector's first block </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the sector number </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block</td><td>points to a block number buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>sector number </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block</td><td>pointer to a block number buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1230,9 +1230,9 @@ Functions</h2></td></tr>
 <p>mifare get the sector's last block </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the sector number </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*block</td><td>points to a block number buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>sector number </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*block</td><td>pointer to a block number buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1277,8 +1277,8 @@ Functions</h2></td></tr>
 <p>mifare select cl1 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*id</td><td>points to an id buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*id</td><td>pointer to an id buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1326,8 +1326,8 @@ Functions</h2></td></tr>
 <p>mifare select cl2 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*id</td><td>points to an id buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*id</td><td>pointer to an id buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1375,8 +1375,8 @@ Functions</h2></td></tr>
 <p>mifare set the load modulation </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">mod</td><td>is the load modulation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mod</td><td>load modulation </td></tr>
   </table>
   </dd>
 </dl>
@@ -1424,8 +1424,8 @@ Functions</h2></td></tr>
 <p>mifare set the personalized uid </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>is the personalized uid type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>personalized uid type </td></tr>
   </table>
   </dd>
 </dl>
@@ -1515,15 +1515,15 @@ Functions</h2></td></tr>
 <p>mifare set the sector permission </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>is the set sector </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key_a</td><td>points to a key a buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_0_0_4</td><td>is the block0(block0-4) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_1_5_9</td><td>is the block1(block5-9) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_2_10_14</td><td>is the block2(block10-14) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block_3_15</td><td>is the block3(block15) permission </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>is the user data </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*key_b</td><td>points to a key b buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sector</td><td>set sector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key_a</td><td>pointer to a key a buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_0_0_4</td><td>block0(block0-4) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_1_5_9</td><td>block1(block5-9) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_2_10_14</td><td>block2(block10-14) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_3_15</td><td>is block3(block15) permission </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>user data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*key_b</td><td>pointer to a key b buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1572,8 +1572,8 @@ Functions</h2></td></tr>
 <p>mifare transfer </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of transfer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of transfer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1634,10 +1634,10 @@ Functions</h2></td></tr>
 <p>mifare init one block as a value block </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the set block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the inited value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>is the set addr </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>set block </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>inited value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>address </td></tr>
   </table>
   </dd>
 </dl>
@@ -1697,10 +1697,10 @@ Functions</h2></td></tr>
 <p>mifare value read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of read </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*value</td><td>points to a value buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*addr</td><td>points to an address buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of read </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*value</td><td>pointer to a value buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*addr</td><td>pointer to an address buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1762,10 +1762,10 @@ Functions</h2></td></tr>
 <p>mifare value write </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the set block </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>is the write value </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>is the set addr </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>set block </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>written value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">addr</td><td>address </td></tr>
   </table>
   </dd>
 </dl>
@@ -1813,8 +1813,8 @@ Functions</h2></td></tr>
 <p>mifare wake up </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>points to a type buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*type</td><td>pointer to a type buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1868,9 +1868,9 @@ Functions</h2></td></tr>
 <p>mifare write </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a mifare_classic handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>is the block of write </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">*data</td><td>points to a data buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a mifare_classic handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block</td><td>block of write </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*data</td><td>pointer to a data buffer </td></tr>
   </table>
   </dd>
 </dl>
