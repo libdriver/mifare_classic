@@ -10,7 +10,7 @@
 
 NXP Semiconductors has developed the MIFARE Classic EV1 contactless IC MF1S50yyX/V1 to be used in a contactless smart card according to ISO/IEC 14443 Type A.The MIFARE Classic EV1 with 1K memory MF1S50yyX/V1 IC is used in applications like public transport ticketing and can also be used for various other applications.MIFARE_Classic can be used in Public transportation, Electronic toll collection, School and campus cards and so on.
 
-LibDriver MIFARE_Classic is a full-featured driver of MIFARE_Classic launched by LibDriver.It provides the function of read block, write block, value increment, value decrement and so on. LibDriver is MISRA compliant.
+LibDriver MIFARE_Classic is a full-featured driver for MIFARE_Classic, launched by LibDriver.It provides block reading, block writing, value increment, value decrement and additional features. LibDriver is MISRA compliant.
 
 This repository includes submodule and you shold add "--recursive" to clone the whole project.
 
