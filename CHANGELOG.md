@@ -1,3 +1,9 @@
+## 1.0.12 (2026-10-26)
+
+## Bug Fixes
+
+- fix check errors
+
 ## 1.0.11 (2026-10-25)
 
 ## Bug Fixes

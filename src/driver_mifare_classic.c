@@ -988,6 +988,12 @@ uint8_t mifare_classic_write(mifare_classic_handle_t *handle, uint8_t block, uin
         
         return 1;                                                                                /* return error */
     }
+    if (output_len != 1)                                                                         /* check the output_len */
+    {
+        handle->debug_print("mifare_classic: output_len is invalid.\n");                         /* output_len is invalid */
+        
+        return 4;                                                                                /* return error */
+    }
     if (output_buf[0] != 0xA)                                                                    /* check the result */
     {
         handle->debug_print("mifare_classic: ack error.\n");                                     /* ack error */
@@ -1092,6 +1098,12 @@ uint8_t mifare_classic_value_init(mifare_classic_handle_t *handle, uint8_t block
         
         return 1;                                                                                /* return error */
     }
+    if (output_len != 1)                                                                         /* check the output_len */
+    {
+        handle->debug_print("mifare_classic: output_len is invalid.\n");                         /* output_len is invalid */
+        
+        return 4;                                                                                /* return error */
+    }
     if (output_buf[0] != 0xA)                                                                    /* check the result */
     {
         handle->debug_print("mifare_classic: ack error.\n");                                     /* ack error */
@@ -1195,6 +1207,12 @@ uint8_t mifare_classic_value_write(mifare_classic_handle_t *handle, uint8_t bloc
         handle->debug_print("mifare_classic: contactless transceiver failed.\n");                /* contactless transceiver failed */
         
         return 1;                                                                                /* return error */
+    }
+    if (output_len != 1)                                                                         /* check the output_len */
+    {
+        handle->debug_print("mifare_classic: output_len is invalid.\n");                         /* output_len is invalid */
+        
+        return 4;                                                                                /* return error */
     }
     if (output_buf[0] != 0xA)                                                                    /* check the result */
     {
@@ -1886,6 +1904,12 @@ uint8_t mifare_classic_set_sector_permission(mifare_classic_handle_t *handle,
         handle->debug_print("mifare_classic: contactless transceiver failed.\n");                /* contactless transceiver failed */
         
         return 1;                                                                                /* return error */
+    }
+    if (output_len != 1)                                                                         /* check the output_len */
+    {
+        handle->debug_print("mifare_classic: output_len is invalid.\n");                         /* output_len is invalid */
+        
+        return 4;                                                                                /* return error */
     }
     if (output_buf[0] != 0xA)                                                                    /* check the result */
     {
