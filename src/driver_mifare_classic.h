@@ -347,6 +347,7 @@ uint8_t mifare_classic_anticollision_cl2(mifare_classic_handle_t *handle, uint8_
  *            - 3 handle is not initialized
  *            - 4 output_len is invalid
  *            - 5 sak error
+ *            - 6 cascade required, continue with anticollision_cl2
  * @note      none
  */
 uint8_t mifare_classic_select_cl1(mifare_classic_handle_t *handle, uint8_t id[4]);
