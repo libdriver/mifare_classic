@@ -234,14 +234,22 @@ uint8_t mifare_classic_request(mifare_classic_handle_t *handle, mifare_classic_t
         
         return 4;                                                                                /* return error */
     }
-    if ((output_buf[0] == 0x04) && (output_buf[1] == 0x00))                                      /* check classic type */
+    if (output_buf[1] != 0x00)                                                                   /* check the high byte of atoa */
+    {
+        *type = MIFARE_CLASSIC_TYPE_INVALID;                                                     /* invalid */
+        handle->type = *type;                                                                    /* save the type */
+        handle->debug_print("mifare_classic: type is invalid.\n");                               /* type is invalid */
+        
+        return 5;                                                                                /* return error */
+    }
+    if ((output_buf[0] == 0x04) || (output_buf[0] == 0x44))                                      /* check param */
     {
         *type = MIFARE_CLASSIC_TYPE_S50;                                                         /* s50 */
         handle->type = *type;                                                                    /* save the type */
         
         return 0;                                                                                /* success return 0 */
     }
-    else if ((output_buf[0] == 0x02) && (output_buf[1] == 0x00))                                 /* check classic type */
+    else if ((output_buf[0] == 0x02) || (output_buf[0] == 0x42))                                 /* check param */
     {
         *type = MIFARE_CLASSIC_TYPE_S70;                                                         /* s70 */
         handle->type = *type;                                                                    /* save the type */
@@ -304,14 +312,22 @@ uint8_t mifare_classic_wake_up(mifare_classic_handle_t *handle, mifare_classic_t
         
         return 4;                                                                                /* return error */
     }
-    if ((output_buf[0] == 0x04) && (output_buf[1] == 0x00))                                      /* check classic type */
+    if (output_buf[1] != 0x00)                                                                   /* check the high byte of atoa */
+    {
+        *type = MIFARE_CLASSIC_TYPE_INVALID;                                                     /* invalid */
+        handle->type = *type;                                                                    /* save the type */
+        handle->debug_print("mifare_classic: type is invalid.\n");                               /* type is invalid */
+        
+        return 5;                                                                                /* return error */
+    }
+    if ((output_buf[0] == 0x04) || (output_buf[0] == 0x44))                                      /* check param */
     {
         *type = MIFARE_CLASSIC_TYPE_S50;                                                         /* s50 */
         handle->type = *type;                                                                    /* save the type */
         
         return 0;                                                                                /* success return 0 */
     }
-    else if ((output_buf[0] == 0x02) && (output_buf[1] == 0x00))                                 /* check classic type */
+    else if ((output_buf[0] == 0x02) || (output_buf[0] == 0x42))                                 /* check param */
     {
         *type = MIFARE_CLASSIC_TYPE_S70;                                                         /* s70 */
         handle->type = *type;                                                                    /* save the type */
@@ -628,6 +644,7 @@ uint8_t mifare_classic_anticollision_cl2(mifare_classic_handle_t *handle, uint8_
  *            - 3 handle is not initialized
  *            - 4 output_len is invalid
  *            - 5 sak error
+ *            - 6 cascade required, continue with anticollision_cl2
  * @note      none
  */
 uint8_t mifare_classic_select_cl1(mifare_classic_handle_t *handle, uint8_t id[4])
@@ -672,8 +689,20 @@ uint8_t mifare_classic_select_cl1(mifare_classic_handle_t *handle, uint8_t id[4]
         
         return 4;                                                                                /* return error */
     }
-    if ((output_buf[0] == 0x08) || (output_buf[0] == 0x18))                                      /* check the sak */
+    if (output_buf[0] == 0x04)                                                                   /* uid not complete */
     {
+        return 6;                                                                                /* cascade required, call cl2 */
+    }
+    else if (output_buf[0] == 0x08)                                                              /* check the sak, s50 */
+    {
+        handle->type = MIFARE_CLASSIC_TYPE_S50;                                                  /* save the type */
+        
+        return 0;                                                                                /* success return 0 */
+    }
+    else if (output_buf[0] == 0x18)                                                              /* check the sak, s70 */
+    {
+        handle->type = MIFARE_CLASSIC_TYPE_S70;                                                  /* save the type */
+        
         return 0;                                                                                /* success return 0 */
     }
     else
@@ -739,8 +768,16 @@ uint8_t mifare_classic_select_cl2(mifare_classic_handle_t *handle, uint8_t id[4]
         
         return 4;                                                                                /* return error */
     }
-    if ((output_buf[0] == 0x08) || (output_buf[0] == 0x18))                                      /* check the sak */
+    if (output_buf[0] == 0x08)                                                                   /* check the sak, s50 */
     {
+        handle->type = MIFARE_CLASSIC_TYPE_S50;                                                  /* save the type */
+        
+        return 0;                                                                                /* success return 0 */
+    }
+    else if (output_buf[0] == 0x18)                                                              /* check the sak, s70 */
+    {
+        handle->type = MIFARE_CLASSIC_TYPE_S70;                                                  /* save the type */
+        
         return 0;                                                                                /* success return 0 */
     }
     else
